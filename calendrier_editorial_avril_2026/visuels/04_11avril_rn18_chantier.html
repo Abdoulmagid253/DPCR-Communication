@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DPCR | RN18 Chantier Carrousel — 11 Avril 2026</title>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#0A1A06; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:40px; padding:30px; }
+    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+
+    /* ── CARROUSEL SLIDE — 1:1 square ─────── */
+    .slide {
+      width:600px; height:600px;
+      border-radius:12px;
+      box-shadow:0 12px 50px rgba(0,0,0,.7);
+      overflow:hidden; position:relative;
+    }
+
+    /* ────────── SLIDE 1 : Photo terrassement ─── */
+    .slide-1 {
+      background:linear-gradient(135deg, #0D2208 0%, #1A4010 50%, #2A6018 100%);
+    }
+    .s1-texture {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 400px 300px at 30% 60%, rgba(80,150,30,.3) 0%, transparent 70%),
+        radial-gradient(ellipse 200px 200px at 80% 30%, rgba(255,195,0,.08) 0%, transparent 60%);
+    }
+    /* Earth texture */
+    .earth-strip {
+      position:absolute;
+      bottom:0; left:0; right:0;
+      height:35%;
+      background:linear-gradient(to top, #3D2200 0%, #5A3410 40%, rgba(50,30,5,.6) 100%);
+    }
+    .earth-strip::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0;
+      height:4px;
+      background:repeating-linear-gradient(90deg, #C87820 0px, #C87820 20px, #8B5010 20px, #8B5010 40px);
+    }
+    .s1-content {
+      position:relative; z-index:2;
+      padding:32px; height:100%;
+      display:flex; flex-direction:column;
+    }
+    .slide-counter {
+      display:flex; gap:6px; justify-content:flex-end; margin-bottom:auto;
+    }
+    .slide-dot { width:28px; height:5px; border-radius:3px; }
+    .dot-active { background:#FFC300; }
+    .dot-inactive { background:rgba(255,255,255,.3); }
+    .logo-tag {
+      display:inline-block;
+      border:2px solid rgba(255,195,0,.6);
+      padding:4px 10px; font-weight:900;
+      font-size:.6rem; letter-spacing:2px;
+      text-transform:uppercase; color:#fff; line-height:1.4;
+      margin-bottom:16px; width:fit-content;
+    }
+    .logo-tag span { color:#FFC300; }
+    .s1-badge {
+      display:inline-block;
+      background:rgba(255,195,0,.15);
+      border:1px solid rgba(255,195,0,.4);
+      color:#FFC300; font-size:.62rem;
+      font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; padding:4px 12px;
+      border-radius:20px; margin-bottom:12px; width:fit-content;
+    }
+    .s1-title {
+      font-size:2.1rem; font-weight:900;
+      color:#fff; text-transform:uppercase;
+      line-height:1.2; margin-bottom:8px;
+    }
+    .s1-title span { color:#FFC300; }
+    .s1-sub {
+      font-size:.82rem; color:rgba(255,255,255,.75);
+      line-height:1.5; margin-bottom:14px;
+    }
+    .road-icon {
+      display:flex; gap:6px; align-items:center;
+      font-size:.75rem; color:rgba(255,255,255,.7);
+    }
+    .road-line {
+      flex:1; height:3px;
+      background:repeating-linear-gradient(90deg,
+        rgba(255,195,0,.6) 0px, rgba(255,195,0,.6) 15px,
+        transparent 15px, transparent 25px
+      );
+    }
+    .hashtags-s1 { font-size:.65rem; color:rgba(255,255,255,.4); margin-top:8px; }
+    .footer-s1 {
+      border-top:1px solid rgba(255,255,255,.15);
+      padding-top:10px; margin-top:10px;
+      display:flex; justify-content:space-between;
+      font-size:.6rem; color:rgba(255,255,255,.45);
+    }
+
+    /* ────────── SLIDE 2 : Infographie chiffres ─── */
+    .slide-2 {
+      background:linear-gradient(135deg, #00235A 0%, #003D8F 50%, #005AC8 100%);
+    }
+    .s2-content {
+      position:relative; z-index:2;
+      padding:32px; height:100%;
+      display:flex; flex-direction:column;
+    }
+    .s2-top {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      margin-bottom:20px;
+    }
+    .s2-title {
+      font-size:1.5rem; font-weight:900;
+      color:#fff; text-transform:uppercase;
+      line-height:1.2; margin-bottom:20px;
+    }
+    .s2-title span { color:#FFC300; }
+    .metrics-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:12px; flex:1;
+    }
+    .metric-card {
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:10px; padding:16px;
+      display:flex; flex-direction:column;
+      align-items:center; text-align:center;
+    }
+    .metric-icon { font-size:1.6rem; margin-bottom:6px; }
+    .metric-val {
+      font-size:2rem; font-weight:900;
+      color:#FFC300; line-height:1;
+    }
+    .metric-unit { font-size:.65rem; color:#FFC300; font-weight:700; }
+    .metric-lbl { font-size:.65rem; color:rgba(255,255,255,.65); text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
+    .progress-row {
+      margin:14px 0;
+    }
+    .progress-label { display:flex; justify-content:space-between; font-size:.68rem; color:rgba(255,255,255,.7); margin-bottom:5px; }
+    .progress-bar { height:8px; background:rgba(255,255,255,.15); border-radius:4px; overflow:hidden; }
+    .progress-fill { height:100%; border-radius:4px; }
+    .pf-green { background:linear-gradient(90deg, #00FF88, #00C866); }
+    .pf-yellow { background:linear-gradient(90deg, #FFC300, #FF8C00); }
+
+    /* ────────── SLIDE 3 : Rendu architectural ─── */
+    .slide-3 {
+      background:linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    }
+    .s3-content {
+      position:relative; z-index:2;
+      padding:32px; height:100%;
+      display:flex; flex-direction:column;
+    }
+    /* Road rendering mockup */
+    .road-render {
+      flex:1; position:relative; margin:16px 0;
+      background:linear-gradient(to bottom, #87CEEB 0%, #B0D4F0 30%, #6B8E6B 50%, #4A6B4A 60%, #555 65%, #444 100%);
+      border-radius:8px; overflow:hidden;
+    }
+    .road-render::after {
+      content:'';
+      position:absolute; bottom:0; left:30%; right:30%;
+      height:40%; background:#555;
+    }
+    .render-dashes {
+      position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:4px; height:40%; z-index:2;
+      background:repeating-linear-gradient(to top, #FFF 0px, #FFF 10px, transparent 10px, transparent 18px);
+    }
+    .render-label {
+      position:absolute; top:10px; left:50%; transform:translateX(-50%);
+      background:rgba(0,0,0,.5); color:white;
+      font-size:.6rem; font-weight:700;
+      letter-spacing:1px; text-transform:uppercase;
+      padding:4px 10px; border-radius:12px; white-space:nowrap;
+    }
+    .render-mountains {
+      position:absolute; bottom:40%; left:0; right:0;
+      height:60px;
+      background:linear-gradient(to top, #5A7A5A, transparent);
+      clip-path:polygon(0 100%, 8% 40%, 15% 80%, 25% 20%, 35% 70%, 45% 10%, 55% 65%, 65% 25%, 75% 75%, 85% 35%, 92% 60%, 100% 100%);
+    }
+    .s3-title {
+      font-size:1.6rem; font-weight:900; color:#fff;
+      text-transform:uppercase; line-height:1.2; margin-bottom:6px;
+    }
+    .s3-title span { color:#FFC300; }
+    .s3-desc { font-size:.78rem; color:rgba(255,255,255,.7); line-height:1.5; margin-bottom:8px; }
+    .route-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+    .route-badge {
+      padding:4px 12px; border-radius:20px;
+      font-size:.65rem; font-weight:700;
+      letter-spacing:1px; text-transform:uppercase;
+    }
+    .rb1 { background:rgba(0,255,136,.15); color:#00FF88; border:1px solid rgba(0,255,136,.3); }
+    .rb2 { background:rgba(255,195,0,.15); color:#FFC300; border:1px solid rgba(255,195,0,.3); }
+    .rb3 { background:rgba(0,207,255,.15); color:#00CFFF; border:1px solid rgba(0,207,255,.3); }
+  </style>
+</head>
+<body>
+
+<div class="label">📌 Carrousel Facebook/LinkedIn — 3 slides — Samedi 11 Avril 2026</div>
+
+<!-- ═══ SLIDE 1 ═══ -->
+<div class="label">Slide 1 / 3 — Photo Terrassement</div>
+<div class="slide slide-1">
+  <div class="s1-texture"></div>
+  <div class="earth-strip"></div>
+  <div class="s1-content">
+    <div class="slide-counter">
+      <div class="slide-dot dot-active"></div>
+      <div class="slide-dot dot-inactive"></div>
+      <div class="slide-dot dot-inactive"></div>
+    </div>
+    <div style="margin-top:auto;">
+      <div class="logo-tag">DPCR <span>DJIBOUTI</span></div><br/>
+      <span class="s1-badge">🏗️ Focus Chantier — Post-Élection</span>
+      <div class="s1-title">PROJET <span>RN18</span> :<br/>AVANCÉES</div>
+      <div class="s1-sub">
+        Artère stratégique reliant <strong style="color:#FFC300;">Djibouti à Ali-Sabieh</strong>, la RN18 est en pleine mutation. Terrassement actif — les fondations de demain se construisent aujourd'hui.
+      </div>
+      <div class="road-icon">
+        <span>DJIBOUTI</span>
+        <div class="road-line"></div>
+        <span>HOL HOL</span>
+        <div class="road-line"></div>
+        <span>ALI SABIEH</span>
+      </div>
+      <div class="hashtags-s1">#RN18 #Infrastructures #Développement #DPCR #Djibouti</div>
+      <div class="footer-s1">
+        <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span>
+        <span>📍 DIFTZ Tower</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2 ═══ -->
+<div class="label">Slide 2 / 3 — Infographie Chiffres Clés</div>
+<div class="slide slide-2">
+  <div class="s2-content">
+    <div class="s2-top">
+      <div style="border:2px solid rgba(255,195,0,.6);padding:4px 10px;font-weight:900;font-size:.6rem;letter-spacing:2px;color:#fff;line-height:1.4;">DPCR<br/><span style="color:#FFC300;">DJIBOUTI</span></div>
+      <div class="slide-counter">
+        <div class="slide-dot dot-inactive"></div>
+        <div class="slide-dot dot-active"></div>
+        <div class="slide-dot dot-inactive"></div>
+      </div>
+    </div>
+    <div class="s2-title">RN18 EN <span>CHIFFRES</span></div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">🛣️</div>
+        <div class="metric-val">74</div>
+        <div class="metric-unit">km</div>
+        <div class="metric-lbl">Axe principal<br/>Djibouti → Ali-Sabieh</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🔄</div>
+        <div class="metric-val">16.5</div>
+        <div class="metric-unit">km</div>
+        <div class="metric-lbl">Rocade urbaine<br/>Périphérie Djibouti</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">📦</div>
+        <div class="metric-val">RN1</div>
+        <div class="metric-unit"></div>
+        <div class="metric-lbl">Décongestion<br/>de l'axe historique</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🇪🇹</div>
+        <div class="metric-val">ETH</div>
+        <div class="metric-unit"></div>
+        <div class="metric-lbl">Connexion optimisée<br/>vers l'Éthiopie</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="progress-row">
+        <div class="progress-label"><span>Axe principal (terrassement)</span><span>35%</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-yellow" style="width:35%"></div></div>
+      </div>
+      <div class="progress-row">
+        <div class="progress-label"><span>Études techniques</span><span>100%</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-green" style="width:100%"></div></div>
+      </div>
+    </div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:8px;">#RN18 #DPCR #Infrastructures #Djibouti</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3 ═══ -->
+<div class="label">Slide 3 / 3 — Rendu Architectural Vision Finale</div>
+<div class="slide slide-3">
+  <div class="s3-content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+      <div style="border:2px solid rgba(255,195,0,.6);padding:4px 10px;font-weight:900;font-size:.6rem;letter-spacing:2px;color:#fff;line-height:1.4;">DPCR<br/><span style="color:#FFC300;">DJIBOUTI</span></div>
+      <div class="slide-counter">
+        <div class="slide-dot dot-inactive"></div>
+        <div class="slide-dot dot-inactive"></div>
+        <div class="slide-dot dot-active"></div>
+      </div>
+    </div>
+    <div class="s3-title">LA <span>RN18</span><br/>DEMAIN</div>
+    <div class="road-render">
+      <div class="render-mountains"></div>
+      <div class="render-dashes"></div>
+      <div class="render-label">RN18 — VISION ARCHITECTURALE 2027</div>
+    </div>
+    <div class="route-badges">
+      <span class="route-badge rb1">✓ Études validées</span>
+      <span class="route-badge rb2">⚙ Terrassement actif</span>
+      <span class="route-badge rb3">🔗 Connexion ETH</span>
+    </div>
+    <div class="s3-desc">DPCR bâtit les fondations de demain. La RN18 sera l'artère de la croissance djiboutienne et le moteur de l'intégration régionale.</div>
+    <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:10px;">#RN18 #Vision2035 #DPCR #Développement #Djibouti</div>
+    <div style="border-top:1px solid rgba(255,255,255,.15);padding-top:10px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.45);">
+      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span><span>📍 DIFTZ Tower, Djibouti</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

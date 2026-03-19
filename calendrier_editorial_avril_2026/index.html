@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendrier Éditorial — DPCR SA — Avril 2026</title>
+  <style>
+    :root {
+      --blue-deep:    #00235A;
+      --blue-mid:     #0052A5;
+      --blue-light:   #1A78C2;
+      --orange:       #F5821F;
+      --yellow:       #FFC300;
+      --green:        #0A7A43;
+      --white:        #FFFFFF;
+      --grey-bg:      #F4F6F9;
+      --grey-text:    #3A3A3A;
+      --grey-light:   #C8D0DB;
+      --linkedin:     #0A66C2;
+      --facebook:     #1877F2;
+      --twitter:      #1DA1F2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--grey-bg);
+      color: var(--grey-text);
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 60%, var(--blue-light) 100%);
+      color: var(--white);
+      padding: 40px 60px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    .header-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .logo-box {
+      border: 3px solid var(--white);
+      padding: 8px 16px;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.08);
+      line-height: 1.3;
+    }
+    .logo-box span { color: var(--yellow); }
+    .logo-subtitle {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 5px;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-title { flex: 1; text-align: center; }
+    .header-title h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; }
+    .header-title p { font-size: 1rem; color: rgba(255,255,255,0.75); margin-top: 6px; letter-spacing: 2px; text-transform: uppercase; }
+    .header-meta {
+      text-align: right;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+    }
+    .header-meta strong { color: var(--yellow); font-size: 1rem; }
+
+    /* ── LEGEND BAR ──────────────────────────── */
+    .legend-bar {
+      background: var(--blue-deep);
+      color: var(--white);
+      padding: 14px 60px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; }
+    .legend-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+    .p1 { background: var(--blue-light); }
+    .p2 { background: var(--green); }
+    .p3 { background: var(--orange); }
+    .p4 { background: #9B59B6; }
+    .tag { padding: 2px 8px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .tag-li  { background: var(--linkedin); }
+    .tag-fb  { background: var(--facebook); }
+    .tag-tw  { background: var(--twitter); }
+
+    /* ── MAIN GRID ───────────────────────────── */
+    main { padding: 36px 60px; }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--blue-deep);
+      border-left: 5px solid var(--orange);
+      padding: 8px 16px;
+      background: var(--white);
+      margin-bottom: 24px;
+      margin-top: 40px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── PUBLICATION CARD ─────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,35,90,0.10);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,35,90,0.18); }
+
+    .card-header {
+      padding: 14px 18px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--grey-light);
+    }
+    .card-date { font-weight: 900; font-size: 1.1rem; color: var(--blue-deep); }
+    .card-date span { font-size: 0.72rem; font-weight: 600; color: #888; display: block; text-transform: uppercase; letter-spacing: 1px; }
+    .card-platforms { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .card-visual {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .card-visual a { display: block; width: 100%; height: 100%; }
+    .card-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .card-visual-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      text-decoration: none;
+    }
+    .card-visual-placeholder .v-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      opacity: 0.18;
+      position: absolute;
+      bottom: 10px; right: 16px;
+    }
+    .card-visual-placeholder .v-icon { font-size: 2.2rem; }
+    .card-visual-placeholder .v-title { font-size: 0.88rem; line-height: 1.4; max-width: 240px; }
+
+    .card-body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .pilier-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px; width: fit-content;
+    }
+    .p1-bg { background: rgba(26,120,194,0.12); color: var(--blue-mid); }
+    .p2-bg { background: rgba(10,122,67,0.12); color: var(--green); }
+    .p3-bg { background: rgba(245,130,31,0.15); color: #C45A00; }
+    .p4-bg { background: rgba(155,89,182,0.12); color: #7D3C98; }
+
+    .card-angle { font-size: 0.82rem; font-weight: 700; color: var(--blue-deep); line-height: 1.4; }
+    .card-copy {
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.6;
+      border-left: 3px solid var(--grey-light);
+      padding-left: 10px;
+      font-style: italic;
+    }
+    .card-hashtags { font-size: 0.72rem; color: var(--blue-light); font-weight: 600; }
+
+    .view-btn {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 7px 16px;
+      background: var(--blue-mid);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: background 0.2s;
+      width: fit-content;
+    }
+    .view-btn:hover { background: var(--blue-deep); }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer {
+      background: var(--blue-deep);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      margin-top: 50px;
+    }
+    footer strong { color: var(--yellow); }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════╗ -->
+<!-- ║              HEADER                      ║ -->
+<!-- ╚══════════════════════════════════════════╝ -->
+<header>
+  <div class="header-logo">
+    <div class="logo-box">DPCR<br/><span>DJIBOUTI</span></div>
+    <div class="logo-subtitle">Ports · Corridor · Road · SA</div>
+  </div>
+  <div class="header-title">
+    <h1>Calendrier Éditorial Digital</h1>
+    <p>Stratégie de communication — Avril 2026</p>
+  </div>
+  <div class="header-meta">
+    <strong>9 publications planifiées</strong><br/>
+    LinkedIn · Facebook · X (Twitter)<br/>
+    4 piliers thématiques<br/>
+    Préparé par Cabinet in'COM
+  </div>
+</header>
+
+<!-- ╔══════════════════════════════════════════╗ -->
+<!-- ║              LEGEND                      ║ -->
+<!-- ╚══════════════════════════════════════════╝ -->
+<div class="legend-bar">
+  <div class="legend-item"><div class="legend-dot p1"></div>Pilier 1 — Avant-Garde Tech &amp; IA</div>
+  <div class="legend-item"><div class="legend-dot p2"></div>Pilier 2 — Intégration Régionale &amp; Opérations</div>
+  <div class="legend-item"><div class="legend-dot p3"></div>Pilier 3 — Sécurité &amp; Prévention</div>
+  <div class="legend-item"><div class="legend-dot p4"></div>Pilier 4 — RSE &amp; Cohésion Nationale</div>
+  <div style="margin-left:auto;display:flex;gap:8px;">
+    <span class="tag tag-li">LinkedIn</span>
+    <span class="tag tag-fb">Facebook</span>
+    <span class="tag tag-tw">X/Twitter</span>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════╗ -->
+<!-- ║         SEMAINES 1 & 2                   ║ -->
+<!-- ╚══════════════════════════════════════════╝ -->
+<main>
+  <div class="section-title">📅 Semaines 1 &amp; 2 — Relance Logistique &amp; Continuité Républicaine (1–12 Avril)</div>
+  <div class="calendar-grid">
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Jeudi</span>
+          02 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-li">LinkedIn</span>
+          <span class="tag tag-fb">Facebook</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/01_02avril_dessu_corridor.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#00235A 0%,#0052A5 60%,#1A78C2 100%);">
+            <div class="v-icon">🌍</div>
+            <div class="v-title">DESSU Corridor Authority<br/>Pont Intercontinental</div>
+            <div class="v-num">01</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p2-bg">● Pilier 2 — Intégration Régionale</span>
+        <div class="card-angle">Valoriser l'accord DESSU pour rassurer les marchés internationaux sur l'attractivité de Djibouti face à la crise de la mer Rouge.</div>
+        <div class="card-copy">🌍 Plus qu'une route, un pont intercontinental. Avec la formalisation de la DESSU Corridor Authority (Djibouti-Éthiopie-Soudan du Sud-Ouganda), DPCR SA consolide la chaîne logistique de l'Afrique de l'Est...</div>
+        <div class="card-hashtags">#DPCR #DESSU #Logistique #Vision2035 #Djibouti</div>
+        <a href="visuels/01_02avril_dessu_corridor.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Dimanche</span>
+          05 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-fb">Facebook</span>
+          <span class="tag tag-tw">X</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/02_05avril_securite_distances.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#B34000 0%,#F5821F 60%,#FFC300 100%);">
+            <div class="v-icon">🚛</div>
+            <div class="v-title">Règle des 2 secondes<br/>Distances de Sécurité</div>
+            <div class="v-num">02</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p3-bg">● Pilier 3 — Sécurité Absolue</span>
+        <div class="card-angle">Gérer le pic de trafic post-Aïd en rappelant la règle vitale des distances de sécurité pour les poids lourds.</div>
+        <div class="card-copy">🚛 La sécurité sur les corridors est une responsabilité partagée. Face à la forte reprise du trafic commercial, DPCR SA rappelle une règle d'or : la distance des 2 secondes. À 80 km/h...</div>
+        <div class="card-hashtags">#SécuritéRoutière #DPCR #Prévention #Mobilité #Djibouti</div>
+        <a href="visuels/02_05avril_securite_distances.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Mercredi</span>
+          08 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-li">LinkedIn</span>
+          <span class="tag tag-fb">Facebook</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/03_08avril_continuite_24h.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#0A1628 0%,#00235A 50%,#0052A5 100%);">
+            <div class="v-icon">⚙️</div>
+            <div class="v-title">Continuité Républicaine<br/>24h/7j — Corridors Actifs</div>
+            <div class="v-num">03</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p2-bg">● Pilier 2 — Excellence Opérationnelle</span>
+        <div class="card-angle">Affirmer la continuité du service public logistique 24/7 à l'aube des élections présidentielles, garantissant la stabilité.</div>
+        <div class="card-copy">⚙️ Les corridors de la République ne dorment jamais. 24h/24, 7j/7, les ingénieurs et patrouilleurs de DPCR SA veillent sur plus de 640 km de réseau vital...</div>
+        <div class="card-hashtags">#Continuité #ServicePublic #DPCR #Excellence #Djibouti</div>
+        <a href="visuels/03_08avril_continuite_24h.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Samedi</span>
+          11 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-fb">Facebook</span>
+          <span class="tag tag-li">LinkedIn</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/04_11avril_rn18_chantier.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#1A3A0A 0%,#2E7D1A 50%,#50A530 100%);">
+            <div class="v-icon">🏗️</div>
+            <div class="v-title">Carrousel RN18<br/>74 km en transformation</div>
+            <div class="v-num">04</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p2-bg">● Pilier 2 — Intégration Régionale</span>
+        <div class="card-angle">Post-élection : recentrer sur la construction physique de l'avenir avec l'avancement de la RN18 (74 km + rocade 16,5 km).</div>
+        <div class="card-copy">🏗️ Focus Chantier : La transformation de la RN18 s'accélère ! Artère stratégique de 74 km reliant Djibouti à Ali-Sabieh, la RN18 est en pleine mutation...</div>
+        <div class="card-hashtags">#RN18 #Infrastructures #Développement #DPCR #Djibouti</div>
+        <a href="visuels/04_11avril_rn18_chantier.html" target="_blank" class="view-btn">→ Voir le visuel (Carrousel)</a>
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <!-- SEMAINES 3 & 4 -->
+  <div class="section-title">📅 Semaines 3 &amp; 4 — L'Ère de la Donnée, Intelligence Artificielle &amp; Valorisation Humaine (13–30 Avril)</div>
+  <div class="calendar-grid">
+
+    <!-- CARD 5 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Mardi</span>
+          14 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-li">LinkedIn</span>
+          <span class="tag tag-tw">X</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/05_14avril_corridorvision_ai.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#0A0A2A 0%,#0A2060 40%,#0052A5 100%);">
+            <div class="v-icon">🧠</div>
+            <div class="v-title">CorridorVision AI<br/>642 km sous surveillance IA</div>
+            <div class="v-num">05</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p1-bg">● Pilier 1 — Avant-Garde Tech</span>
+        <div class="card-angle">Démontrer l'impact de l'IA sur la réduction des coûts et l'allongement de la durée de vie des routes djiboutiennes.</div>
+        <div class="card-copy">🧠 Quand l'Intelligence Artificielle ausculte nos routes. Découvrez #CorridorVisionAI, l'innovation déployée sur 642 km de réseau. Grâce à des algorithmes de vision par ordinateur...</div>
+        <div class="card-hashtags">#Innovation #IA #SmartInfrastructure #DPCR #Djibouti</div>
+        <a href="visuels/05_14avril_corridorvision_ai.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Jeudi</span>
+          16 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-fb">Facebook</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/06_16avril_quiz_khamsin.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#7A3800 0%,#D4580A 50%,#F5821F 100%);">
+            <div class="v-icon">❓</div>
+            <div class="v-title">Quiz Sécurité DPCR<br/>Khamsin — Testez vos réflexes</div>
+            <div class="v-num">06</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p3-bg">● Pilier 3 — Sécurité Absolue (Gamification)</span>
+        <div class="card-angle">Gamification : Éduquer les chauffeurs sur les comportements de survie lors d'une tempête de sable (Khamsin) via un quiz interactif.</div>
+        <div class="card-copy">❓ Le Quiz Sécurité DPCR : Testez vos réflexes ! Face aux caprices de la météo, lors d'un vent de sable réduisant la visibilité à moins de 50 mètres... (A/B/C)</div>
+        <div class="card-hashtags">#QuizDPCR #SécuritéRoutière #Khamsin #Djibouti</div>
+        <a href="visuels/06_16avril_quiz_khamsin.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 7 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Lundi</span>
+          20 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-li">LinkedIn</span>
+          <span class="tag tag-fb">Facebook</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/07_20avril_pregate_vert.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#072B1A 0%,#0A7A43 60%,#0AB368 100%);">
+            <div class="v-icon">🌱</div>
+            <div class="v-title">Pre-Gate Intelligent<br/>Logistique Verte &amp; Décongestion</div>
+            <div class="v-num">07</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p1-bg">● Pilier 1 &amp; 4 — Tech &amp; RSE/ESG</span>
+        <div class="card-angle">Promouvoir le projet Pre-gate comme solution ESG réduisant les émissions carbone urbaines et la congestion autour de Djibouti-ville.</div>
+        <div class="card-copy">🌱 Un futur logistique vert et décongestionné. Le projet de « Pre-gate » intégré de DPCR SA redéfinit la gestion des flux en périphérie urbaine...</div>
+        <div class="card-hashtags">#LogistiqueDurable #PreGate #DPCR #GreenPorts #Djibouti</div>
+        <a href="visuels/07_20avril_pregate_vert.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 8 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Jeudi</span>
+          23 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-li">LinkedIn</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/08_23avril_fms_dpcs.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#00235A 0%,#003D8F 50%,#005FCC 100%);">
+            <div class="v-icon">🔗</div>
+            <div class="v-title">FMS ↔ DPCS<br/>Traçabilité Totale Mer → Hinterland</div>
+            <div class="v-num">08</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p1-bg">● Pilier 1 — Avant-Garde Tech</span>
+        <div class="card-angle">Expliciter la synergie numérique entre le réseau routier (FMS/RFID) et le système portuaire (DPCS) pour rassurer les partenaires B2B.</div>
+        <div class="card-copy">🔗 De la mer à l'hinterland : une traçabilité sans faille. Avec le Fleet Management System (FMS) équipé de la technologie RFID, chaque camion est suivi en temps réel...</div>
+        <div class="card-hashtags">#SupplyChain #FMS #DPCS #Digitalisation #DPCR</div>
+        <a href="visuels/08_23avril_fms_dpcs.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+    <!-- CARD 9 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-date">
+          <span>Mardi</span>
+          28 Avril 2026
+        </div>
+        <div class="card-platforms">
+          <span class="tag tag-fb">Facebook</span>
+          <span class="tag tag-li">LinkedIn</span>
+          <span class="tag tag-tw">X</span>
+        </div>
+      </div>
+      <div class="card-visual">
+        <a href="visuels/09_28avril_oit_equipes.html" target="_blank">
+          <div class="card-visual-placeholder" style="background:linear-gradient(135deg,#3A0060 0%,#7B22B4 50%,#A855F7 100%);">
+            <div class="v-icon">👷‍♂️</div>
+            <div class="v-title">Journée OIT — Santé Psychosociale<br/>DPCR valorise ses équipes</div>
+            <div class="v-num">09</div>
+          </div>
+        </a>
+      </div>
+      <div class="card-body">
+        <span class="pilier-badge p4-bg">● Pilier 4 — RSE &amp; Cohésion Nationale</span>
+        <div class="card-angle">S'associer à la Journée Mondiale OIT (28 avril) pour humaniser la marque et valoriser les travailleurs opérant dans des conditions difficiles.</div>
+        <div class="card-copy">👷‍♂️ La sécurité logistique commence par le bien-être de nos équipes. Pour la Journée mondiale de la sécurité et de la santé au travail, DPCR s'aligne sur l'OIT...</div>
+        <div class="card-hashtags">#SafeDay2026 #WorldSafetyDay #SantéAuTravail #OIT #DPCR #Djibouti</div>
+        <a href="visuels/09_28avril_oit_equipes.html" target="_blank" class="view-btn">→ Voir le visuel</a>
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <!-- ── FREQUENCY TABLE ─────────────────────────── -->
+  <div class="section-title">📊 Récapitulatif des Fréquences et Créneaux de Publication</div>
+  <table style="width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,35,90,.10);">
+    <thead>
+      <tr style="background:var(--blue-deep);color:white;font-size:.82rem;text-transform:uppercase;letter-spacing:1px;">
+        <th style="padding:14px 18px;text-align:left;">Plateforme</th>
+        <th style="padding:14px 18px;text-align:left;">Fréquence Avril 2026</th>
+        <th style="padding:14px 18px;text-align:left;">Jours Optimaux</th>
+        <th style="padding:14px 18px;text-align:left;">Créneaux Horaires (EAT)</th>
+        <th style="padding:14px 18px;text-align:left;">Audience Cible</th>
+      </tr>
+    </thead>
+    <tbody style="font-size:.82rem;">
+      <tr style="border-bottom:1px solid #EEF0F4;">
+        <td style="padding:13px 18px;font-weight:700;color:var(--linkedin);">LinkedIn</td>
+        <td style="padding:13px 18px;">2× / semaine — <strong>7 publications</strong></td>
+        <td style="padding:13px 18px;">Mardi &amp; Jeudi</td>
+        <td style="padding:13px 18px;">08h30 – 10h00</td>
+        <td style="padding:13px 18px;">Investisseurs, BAD/BM, Opérateurs logistiques, Gouvernements</td>
+      </tr>
+      <tr style="border-bottom:1px solid #EEF0F4;background:#FAFBFC;">
+        <td style="padding:13px 18px;font-weight:700;color:var(--facebook);">Facebook</td>
+        <td style="padding:13px 18px;">3× / semaine — <strong>7 publications</strong></td>
+        <td style="padding:13px 18px;">Lun. · Mer. · Ven.</td>
+        <td style="padding:13px 18px;">17h00 – 19h00</td>
+        <td style="padding:13px 18px;">Population djiboutienne, chauffeurs, société civile, diaspora</td>
+      </tr>
+      <tr>
+        <td style="padding:13px 18px;font-weight:700;color:var(--twitter);">X (Twitter)</td>
+        <td style="padding:13px 18px;">3–5× / semaine — <strong>4 publications</strong></td>
+        <td style="padding:13px 18px;">Adapté à l'actualité</td>
+        <td style="padding:13px 18px;">Temps réel</td>
+        <td style="padding:13px 18px;">Médias, journalistes économiques, influenceurs politiques</td>
+      </tr>
+    </tbody>
+  </table>
+
+</main>
+
+<footer>
+  <strong>DPCR SA</strong> — Djibouti Ports Corridor Road SA &nbsp;|&nbsp;
+  📞 (+253) 21 27 05 11 &nbsp;|&nbsp; ✉ info@dpcr.dj &nbsp;|&nbsp; 📍 DIFTZ Tower, Djibouti &nbsp;|&nbsp;
+  Calendrier Éditorial Avril 2026 — <strong>Cabinet in'COM</strong>
+</footer>
+</body>
+</html>

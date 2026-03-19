@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DPCR | Journée OIT Équipes — 28 Avril 2026</title>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#0E0A1A; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
+    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+
+    /* ── WIDE 16:9 — Warm & Human ─────── */
+    .post-wide {
+      width:900px; height:506px;
+      border-radius:10px;
+      box-shadow:0 12px 60px rgba(100,60,180,.3);
+      overflow:hidden; position:relative;
+      background:#0E0A1A; display:flex;
+    }
+
+    /* Left: Photo zone placeholder — team photo */
+    .pw-photo {
+      width:48%; position:relative; overflow:hidden;
+      background:linear-gradient(135deg, #1A0A30 0%, #2A1248 50%, #3A1A60 100%);
+    }
+    /* Person silhouettes */
+    .team-scene {
+      position:absolute; bottom:0; left:0; right:0;
+      height:80%;
+      display:flex; align-items:flex-end; justify-content:center;
+      gap:8px; padding:0 20px;
+    }
+    .person {
+      display:flex; flex-direction:column; align-items:center;
+      gap:4px; position:relative;
+    }
+    .person-head {
+      border-radius:50%;
+      border:2px solid rgba(255,255,255,.6);
+    }
+    .person-body {
+      border-radius:6px 6px 0 0;
+    }
+    /* EPI vest */
+    .vest-1 { background:linear-gradient(to bottom, #F5821F 0%, #D46010 100%); }
+    .vest-2 { background:linear-gradient(to bottom, #FFC300 0%, #CCA000 100%); }
+    .vest-3 { background:linear-gradient(to bottom, #F5821F 0%, #D46010 100%); }
+    .vest-4 { background:linear-gradient(to bottom, #0052A5 0%, #003580 100%); }
+    .vest-5 { background:linear-gradient(to bottom, #FFC300 0%, #CCA000 100%); }
+    .helmet {
+      width:22px; height:10px;
+      border-radius:50% 50% 0 0;
+      margin-bottom:-4px;
+      z-index:1;
+    }
+    .h-orange { background:#F5821F; }
+    .h-yellow { background:#FFC300; }
+    .h-white { background:#EEE; }
+    .h-blue { background:#0052A5; }
+    /* Ground strip */
+    .ground-strip {
+      position:absolute; bottom:0; left:0; right:0;
+      height:30px;
+      background:linear-gradient(to top, rgba(0,0,0,.5), transparent);
+      border-top:2px solid rgba(255,195,0,.3);
+    }
+    /* Truck silhouette in background */
+    .truck-bg {
+      position:absolute; right:5%; bottom:28px;
+      opacity:.2;
+      font-size:4rem;
+    }
+
+    /* Light rays */
+    .light-ray {
+      position:absolute; top:0;
+      width:60px; height:100%;
+      background:linear-gradient(to bottom, rgba(155,89,182,.2), transparent);
+      transform-origin:top center;
+    }
+    .lr1 { left:20%; transform:rotate(-5deg); }
+    .lr2 { left:40%; transform:rotate(0deg); background:linear-gradient(to bottom,rgba(255,195,0,.1),transparent); }
+    .lr3 { left:60%; transform:rotate(5deg); }
+
+    /* Photo label -->
+    .photo-label {
+      position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+      background:rgba(0,0,0,.6); color:rgba(255,255,255,.7);
+      font-size:.52rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; padding:4px 10px;
+      border-radius:8px; white-space:nowrap;
+    }
+
+    /* Right: Text content */
+    .pw-right {
+      flex:1; background:linear-gradient(135deg, #0E0A1A 0%, #160D28 50%, #0E0A1A 100%);
+      padding:26px 30px; display:flex; flex-direction:column; gap:8px;
+      position:relative;
+    }
+    .pw-right::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(circle at 70% 30%, rgba(155,89,182,.1) 0%, transparent 60%);
+    }
+    .logo-box {
+      border:2px solid rgba(155,89,182,.5);
+      padding:4px 9px; font-weight:900; font-size:.58rem;
+      letter-spacing:2px; text-transform:uppercase;
+      color:#fff; line-height:1.4; width:fit-content;
+    }
+    .logo-box span { color:#A855F7; }
+    .oit-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(155,89,182,.15);
+      border:1px solid rgba(155,89,182,.4);
+      color:#C084FC;
+      font-size:.6rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; padding:5px 12px;
+      border-radius:20px; margin:4px 0; width:fit-content;
+    }
+    .main-title {
+      font-size:1.35rem; font-weight:900; color:#fff;
+      text-transform:uppercase; line-height:1.2; margin:6px 0;
+      position:relative; z-index:1;
+    }
+    .main-title span { color:#A855F7; }
+    .main-title .yellow { color:#FFC300; }
+    .oit-theme {
+      background:rgba(155,89,182,.1);
+      border-left:3px solid #A855F7;
+      border-radius:0 6px 6px 0;
+      padding:8px 12px; margin:4px 0;
+      position:relative; z-index:1;
+    }
+    .oit-theme-label { font-size:.55rem; color:rgba(155,89,182,.8); text-transform:uppercase; letter-spacing:1px; font-weight:700; }
+    .oit-theme-text { font-size:.75rem; color:#fff; font-weight:700; margin-top:2px; }
+    .desc-text {
+      font-size:.73rem; color:rgba(255,255,255,.75);
+      line-height:1.5; margin:4px 0;
+      position:relative; z-index:1;
+    }
+    /* Values row */
+    .values-row { display:flex; gap:6px; flex-wrap:wrap; margin:4px 0; position:relative; z-index:1; }
+    .value-chip {
+      padding:4px 10px; border-radius:20px;
+      font-size:.6rem; font-weight:700; letter-spacing:.5px;
+      text-transform:uppercase;
+      background:rgba(155,89,182,.1); color:#C084FC;
+      border:1px solid rgba(155,89,182,.25);
+    }
+    .hashtags { font-size:.62rem; color:rgba(155,89,182,.5); position:relative; z-index:1; }
+    .footer-bar {
+      position:absolute; bottom:0; left:0; right:0; height:36px;
+      background:rgba(0,0,0,.5);
+      border-top:1px solid rgba(155,89,182,.1);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 30px; font-size:.6rem; color:rgba(255,255,255,.4);
+    }
+
+    /* ── SQUARE 1:1 ─────────────────── */
+    .post-sq {
+      width:600px; height:600px;
+      border-radius:10px;
+      box-shadow:0 12px 50px rgba(100,60,180,.35);
+      overflow:hidden; position:relative;
+      background:#0E0A1A;
+    }
+    .sq-content {
+      position:relative; z-index:2;
+      padding:28px; height:100%;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .sq-glow {
+      position:absolute; inset:0;
+      background:radial-gradient(circle at 30% 30%, rgba(155,89,182,.15) 0%, transparent 60%);
+    }
+    .worker-icon { font-size:3.5rem; text-align:center; margin:6px 0; }
+    .sq-title { font-size:1.7rem; font-weight:900; color:#fff; text-transform:uppercase; line-height:1.2; text-align:center; margin-bottom:6px; }
+    .sq-title span { color:#A855F7; }
+    /* Team emoji row -->
+    .team-row {
+      display:flex; justify-content:center; gap:8px;
+      font-size:1.8rem; padding:8px;
+      background:rgba(155,89,182,.08);
+      border:1px solid rgba(155,89,182,.2);
+      border-radius:10px;
+    }
+    .quote-box {
+      background:rgba(155,89,182,.1);
+      border-left:4px solid #A855F7;
+      border-radius:0 8px 8px 0;
+      padding:12px 14px;
+      font-size:.78rem; color:#fff; line-height:1.5;
+      font-style:italic;
+    }
+    .quote-box strong { color:#FFC300; font-style:normal; }
+    .pills-row { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:6px 0; }
+    .pill {
+      padding:4px 10px; border-radius:20px;
+      font-size:.6rem; font-weight:700; letter-spacing:.5px;
+    }
+    .p1-pil { background:rgba(0,255,136,.1); color:#00FF88; border:1px solid rgba(0,255,136,.3); }
+    .p2-pil { background:rgba(255,195,0,.1); color:#FFC300; border:1px solid rgba(255,195,0,.3); }
+    .p3-pil { background:rgba(0,207,255,.1); color:#00CFFF; border:1px solid rgba(0,207,255,.3); }
+    .p4-pil { background:rgba(245,130,31,.1); color:#F5821F; border:1px solid rgba(245,130,31,.3); }
+  </style>
+</head>
+<body>
+
+<div class="label">📌 Post Facebook/LinkedIn/X — 16:9 — Mardi 28 Avril 2026 (Journée OIT)</div>
+
+<!-- ═══ WIDE 16:9 ═══ -->
+<div class="post-wide">
+  <!-- Photo Zone Left -->
+  <div class="pw-photo">
+    <div class="light-ray lr1"></div>
+    <div class="light-ray lr2"></div>
+    <div class="light-ray lr3"></div>
+    <div class="truck-bg">🚛</div>
+    <!-- Team silhouettes -->
+    <div class="team-scene">
+      <!-- Person 1 -->
+      <div class="person" style="height:160px;">
+        <div class="helmet h-orange"></div>
+        <div class="person-head" style="width:24px;height:24px;background:rgba(200,160,120,.6);"></div>
+        <div class="person-body vest-1" style="width:28px;height:70px;"></div>
+        <div style="display:flex;gap:3px;">
+          <div style="width:13px;height:30px;background:rgba(60,40,20,.8);border-radius:3px 3px 0 0;"></div>
+          <div style="width:13px;height:30px;background:rgba(60,40,20,.8);border-radius:3px 3px 0 0;"></div>
+        </div>
+      </div>
+      <!-- Person 2 (taller) -->
+      <div class="person" style="height:175px;">
+        <div class="helmet h-yellow"></div>
+        <div class="person-head" style="width:26px;height:26px;background:rgba(180,140,100,.6);"></div>
+        <div class="person-body vest-2" style="width:30px;height:80px;"></div>
+        <div style="display:flex;gap:3px;">
+          <div style="width:14px;height:32px;background:rgba(40,30,15,.8);border-radius:3px 3px 0 0;"></div>
+          <div style="width:14px;height:32px;background:rgba(40,30,15,.8);border-radius:3px 3px 0 0;"></div>
+        </div>
+      </div>
+      <!-- Person 3 (woman, slightly shorter) -->
+      <div class="person" style="height:155px;">
+        <div class="helmet h-white"></div>
+        <div class="person-head" style="width:22px;height:22px;background:rgba(210,170,130,.6);"></div>
+        <div class="person-body vest-3" style="width:26px;height:65px;"></div>
+        <div style="display:flex;gap:3px;">
+          <div style="width:12px;height:28px;background:rgba(60,40,20,.8);border-radius:3px 3px 0 0;"></div>
+          <div style="width:12px;height:28px;background:rgba(60,40,20,.8);border-radius:3px 3px 0 0;"></div>
+        </div>
+      </div>
+      <!-- Person 4 -->
+      <div class="person" style="height:170px;">
+        <div class="helmet h-blue"></div>
+        <div class="person-head" style="width:24px;height:24px;background:rgba(180,140,100,.6);"></div>
+        <div class="person-body vest-4" style="width:28px;height:75px;"></div>
+        <div style="display:flex;gap:3px;">
+          <div style="width:13px;height:30px;background:rgba(30,20,10,.8);border-radius:3px 3px 0 0;"></div>
+          <div style="width:13px;height:30px;background:rgba(30,20,10,.8);border-radius:3px 3px 0 0;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ground-strip"></div>
+    <div class="photo-label">Équipe DPCR — Patrouilleurs &amp; Ingénieurs</div>
+    <!-- OIT logo placeholder -->
+    <div style="position:absolute;top:10px;right:10px;background:rgba(0,0,80,.5);border:1px solid rgba(155,89,182,.4);border-radius:6px;padding:6px 10px;text-align:center;">
+      <div style="font-size:.55rem;font-weight:700;color:#C084FC;text-transform:uppercase;letter-spacing:1px;">OIT / ILO</div>
+      <div style="font-size:.5rem;color:rgba(255,255,255,.6);">Journée Mondiale</div>
+      <div style="font-size:.5rem;color:rgba(255,255,255,.6);">28 Avril 2026</div>
+    </div>
+  </div>
+
+  <!-- Text Right -->
+  <div class="pw-right">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;">
+      <div class="logo-box">DPCR <span>DJIBOUTI</span></div>
+      <span style="font-size:.58rem;color:rgba(255,255,255,.4);">📅 28 Avril 2026</span>
+    </div>
+    <span class="oit-badge">👷 Journée Mondiale Sécurité &amp; Santé — OIT</span>
+    <div class="main-title">
+      LA SÉCURITÉ<br/>
+      COMMENCE PAR<br/>
+      LE <span>BIEN-ÊTRE</span><br/>
+      DE NOS <span class="yellow">ÉQUIPES</span>
+    </div>
+    <div class="oit-theme" style="position:relative;z-index:1;">
+      <div class="oit-theme-label">🌍 Thème OIT 2026</div>
+      <div class="oit-theme-text">Environnements de travail psychosociaux sains</div>
+    </div>
+    <div class="desc-text">
+      DPCR investit dans la <strong style="color:#A855F7;">sécurité physique</strong> de ses agents et dans un cadre de travail <strong style="color:#FFC300;">solidaire</strong> et respectueux de la charge mentale de chacun.
+    </div>
+    <div class="values-row">
+      <span class="value-chip">🧠 Santé Psychosociale</span>
+      <span class="value-chip">🛡 EPI Complets</span>
+      <span class="value-chip">👥 Équipe Unie</span>
+      <span class="value-chip">❤ Bienveillance</span>
+    </div>
+    <div class="hashtags">#SafeDay2026 #WorldSafetyDay #SantéAuTravail #OIT #DPCR #Djibouti</div>
+    <div class="footer-bar">
+      <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj</span>
+      <span>📍 DIFTZ Tower, Djibouti &nbsp;|&nbsp; dpcr.dj</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SQUARE 1:1 ═══ -->
+<div class="label">📌 Post Facebook — 1:1 — Mardi 28 Avril 2026</div>
+<div class="post-sq">
+  <div class="sq-glow"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 70%,rgba(155,89,182,.12) 0%,transparent 60%);"></div>
+  <div class="sq-content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div style="border:2px solid rgba(155,89,182,.5);padding:4px 9px;font-weight:900;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#fff;line-height:1.4;">DPCR<br/><span style="color:#A855F7;">DJIBOUTI</span></div>
+      <div style="text-align:right;">
+        <div style="background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.4);color:#C084FC;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">28 Avril — OIT</div>
+      </div>
+    </div>
+    <div class="worker-icon">👷‍♂️👷‍♀️</div>
+    <div class="sq-title">
+      BIEN-ÊTRE<br/>
+      = <span>CORRIDOR</span><br/>
+      SÉCURISÉ
+    </div>
+    <div class="team-row">
+      <span>🦺</span><span>⛑</span><span>🤝</span><span>💪</span><span>🛠</span>
+    </div>
+    <div class="quote-box">
+      "Un collaborateur <strong>serein</strong>, c'est un corridor <strong>sécurisé</strong>. DPCR s'aligne sur l'OIT pour promouvoir des environnements de travail <strong>psychosociaux sains</strong>."
+    </div>
+    <div class="pills-row">
+      <span class="pill p1-pil">✓ Santé psychosociale</span>
+      <span class="pill p2-pil">✓ Sécurité physique</span>
+      <span class="pill p3-pil">✓ Solidarité d'équipe</span>
+      <span class="pill p4-pil">✓ EPI conformes</span>
+    </div>
+    <div style="font-size:.65rem;color:rgba(155,89,182,.5);text-align:center;margin-bottom:8px;">#SafeDay2026 #WorldSafetyDay #SantéAuTravail #OIT #DPCR</div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:10px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.4);">
+      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span><span>📍 DIFTZ Tower</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

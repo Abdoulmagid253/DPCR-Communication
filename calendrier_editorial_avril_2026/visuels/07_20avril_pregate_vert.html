@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DPCR | Pre-Gate Logistique Verte — 20 Avril 2026</title>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#040D08; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
+    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+
+    /* ── WIDE 16:9 ─────────────── */
+    .post-wide {
+      width:900px; height:506px;
+      border-radius:10px;
+      box-shadow:0 12px 60px rgba(0,150,80,.25);
+      overflow:hidden; position:relative;
+      background:#040D08; display:flex;
+    }
+
+    /* Left: Architectural render mockup */
+    .pw-arch {
+      width:50%; position:relative; overflow:hidden;
+      background:linear-gradient(135deg, #061A0E 0%, #0A3018 50%, #0D4820 100%);
+    }
+
+    /* Sky gradient */
+    .arch-sky {
+      position:absolute; top:0; left:0; right:0; height:40%;
+      background:linear-gradient(to bottom, #87CEEB 0%, #B8D4E8 30%, #C8E8D0 60%, transparent 100%);
+      opacity:.35;
+    }
+    /* Ground */
+    .arch-ground {
+      position:absolute; bottom:0; left:0; right:0; height:25%;
+      background:linear-gradient(to top, #1A3A0A 0%, #2A5010 60%, transparent 100%);
+    }
+
+    /* Parking grid simulation */
+    .parking-grid {
+      position:absolute;
+      bottom:22%; left:5%; right:5%;
+      height:50%;
+    }
+    .parking-row {
+      display:flex; justify-content:space-around;
+      margin-bottom:4px;
+    }
+    .parking-slot {
+      width:45px; height:18px;
+      border:1px solid rgba(0,255,136,.3);
+      border-radius:3px;
+      position:relative;
+    }
+    .parking-slot.occupied {
+      background:rgba(0,150,80,.25);
+    }
+    .parking-slot.occupied::after {
+      content:'';
+      position:absolute; inset:2px;
+      background:rgba(0,200,100,.3);
+      border-radius:2px;
+    }
+    .parking-slot.solar {
+      border-color:rgba(255,195,0,.4);
+      background:rgba(255,195,0,.08);
+    }
+    /* Road between rows */
+    .parking-road {
+      height:8px;
+      background:rgba(100,100,100,.3);
+      margin:2px 0;
+      border-radius:2px;
+    }
+
+    /* Solar panels on top */
+    .solar-bank {
+      position:absolute;
+      top:30%; right:8%;
+      display:grid; grid-template-columns:repeat(4,22px); gap:2px;
+    }
+    .solar-cell {
+      width:22px; height:14px;
+      background:linear-gradient(135deg, #1A3A8A 0%, #2250B0 50%, #1A3A8A 100%);
+      border:1px solid rgba(255,195,0,.2);
+      border-radius:2px;
+    }
+
+    /* Control tower */
+    .control-tower {
+      position:absolute;
+      top:20%; left:15%;
+      width:20px; height:40px;
+      background:rgba(100,150,120,.4);
+      border:1px solid rgba(0,255,136,.2);
+      border-radius:3px 3px 0 0;
+    }
+    .tower-top {
+      position:absolute;
+      top:-8px; left:-5px; right:-5px;
+      height:10px;
+      background:rgba(0,255,136,.3);
+      border:1px solid rgba(0,255,136,.5);
+      border-radius:2px;
+    }
+    .tower-beam {
+      position:absolute;
+      top:-25px; left:50%; transform:translateX(-50%);
+      width:2px; height:18px;
+      background:rgba(0,207,255,.5);
+    }
+
+    /* Arch label -->
+    .arch-label {
+      position:absolute;
+      bottom:26%; left:50%; transform:translateX(-50%);
+      background:rgba(0,0,0,.6); color:rgba(0,255,136,.8);
+      font-size:.52rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; padding:4px 10px;
+      border-radius:8px; white-space:nowrap;
+      border:1px solid rgba(0,255,136,.3);
+    }
+
+    /* Certification badges */
+    .cert-badges {
+      position:absolute;
+      top:10px; left:10px;
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .cert-badge {
+      font-size:.45rem; font-weight:700; letter-spacing:.5px;
+      text-transform:uppercase; padding:3px 8px;
+      border-radius:12px; background:rgba(0,0,0,.5);
+      border:1px solid; white-space:nowrap;
+    }
+    .cb-green { color:#00FF88; border-color:rgba(0,255,136,.4); }
+    .cb-blue { color:#00CFFF; border-color:rgba(0,207,255,.4); }
+    .cb-yellow { color:#FFC300; border-color:rgba(255,195,0,.4); }
+
+    /* Right: Text content */
+    .pw-right {
+      flex:1; background:linear-gradient(135deg, #040D08 0%, #071A0D 50%, #040D08 100%);
+      padding:28px 32px; display:flex; flex-direction:column; gap:8px;
+      position:relative; overflow:hidden;
+    }
+    .pw-right::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(circle at 80% 20%, rgba(0,150,80,.1) 0%, transparent 60%);
+    }
+    .logo-box {
+      border:2px solid rgba(0,255,136,.4);
+      padding:4px 9px; font-weight:900; font-size:.58rem;
+      letter-spacing:2px; text-transform:uppercase;
+      color:#fff; line-height:1.4; width:fit-content;
+    }
+    .logo-box span { color:#00FF88; }
+    .pilier-tag {
+      display:inline-block;
+      background:rgba(0,255,136,.08);
+      border-left:3px solid #00FF88;
+      color:#00FF88; font-size:.58rem; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase;
+      padding:3px 10px; width:fit-content; margin:4px 0;
+    }
+    .main-title {
+      font-size:1.6rem; font-weight:900; color:#fff;
+      text-transform:uppercase; line-height:1.2; margin:6px 0;
+    }
+    .main-title span { color:#00FF88; }
+    .main-title .blue { color:#00CFFF; }
+    .desc-text {
+      font-size:.76rem; color:rgba(255,255,255,.75);
+      line-height:1.5; margin:4px 0;
+      border-left:3px solid rgba(0,255,136,.2);
+      padding-left:10px;
+    }
+    /* Benefits row */
+    .benefit-row { display:flex; flex-direction:column; gap:5px; margin:6px 0; }
+    .benefit-item {
+      display:flex; align-items:center; gap:8px;
+      font-size:.72rem; color:rgba(255,255,255,.8); line-height:1.3;
+    }
+    .benefit-icon { font-size:.9rem; flex-shrink:0; }
+    .benefit-val { color:#00FF88; font-weight:700; }
+
+    /* Partners */
+    .partners-row { display:flex; gap:8px; flex-wrap:wrap; margin:6px 0; }
+    .partner-chip {
+      padding:3px 10px; border-radius:20px;
+      font-size:.58rem; font-weight:700; letter-spacing:.5px;
+      text-transform:uppercase;
+      background:rgba(0,255,136,.06); color:rgba(255,255,255,.7);
+      border:1px solid rgba(0,255,136,.2);
+    }
+
+    .hashtags { font-size:.65rem; color:rgba(0,255,136,.4); }
+
+    .footer-bar {
+      position:absolute; bottom:0; left:0; right:0; height:36px;
+      background:rgba(0,0,0,.5);
+      border-top:1px solid rgba(0,255,136,.1);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 32px; font-size:.6rem; color:rgba(255,255,255,.4);
+    }
+
+    /* ── SQUARE 1:1 ─────────────────── */
+    .post-sq {
+      width:600px; height:600px;
+      border-radius:10px;
+      box-shadow:0 12px 50px rgba(0,150,80,.3);
+      overflow:hidden; position:relative;
+      background:#040D08;
+    }
+    /* Hexagonal ESG pattern */
+    .hex-bg {
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(0,150,80,.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0,100,50,.2) 0%, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(0,207,255,.05) 0%, transparent 40%);
+    }
+    .sq-content {
+      position:relative; z-index:2;
+      padding:28px; height:100%;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .sq-top { display:flex; justify-content:space-between; align-items:flex-start; }
+    .sq-title { font-size:1.7rem; font-weight:900; color:#fff; text-transform:uppercase; line-height:1.2; margin:10px 0 6px; }
+    .sq-title span { color:#00FF88; }
+    /* ESG meter */
+    .esg-block {
+      background:rgba(0,255,136,.05);
+      border:1px solid rgba(0,255,136,.2);
+      border-radius:10px; padding:12px 14px;
+    }
+    .esg-title { font-size:.65rem; font-weight:700; color:#00FF88; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .esg-meter { display:flex; flex-direction:column; gap:5px; }
+    .esg-bar-row { display:flex; align-items:center; gap:8px; }
+    .esg-lbl { font-size:.6rem; color:rgba(255,255,255,.65); width:80px; text-align:right; flex-shrink:0; }
+    .esg-track { flex:1; height:6px; background:rgba(255,255,255,.1); border-radius:3px; overflow:hidden; }
+    .esg-fill { height:100%; border-radius:3px; }
+    .ef1 { width:80%; background:linear-gradient(90deg,#00FF88,#00C866); }
+    .ef2 { width:65%; background:linear-gradient(90deg,#00CFFF,#0088CC); }
+    .ef3 { width:90%; background:linear-gradient(90deg,#FFC300,#FF8C00); }
+    .esg-val { font-size:.6rem; color:#00FF88; font-weight:700; width:28px; }
+  </style>
+</head>
+<body>
+
+<div class="label">📌 Post LinkedIn/Facebook — 16:9 — Lundi 20 Avril 2026</div>
+
+<!-- ═══ WIDE 16:9 ═══ -->
+<div class="post-wide">
+  <!-- Architectural Render Left -->
+  <div class="pw-arch">
+    <div class="arch-sky"></div>
+    <div class="arch-ground"></div>
+    <!-- Parking grid -->
+    <div class="parking-grid">
+      <div class="parking-road"></div>
+      <div class="parking-row">
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot solar"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot"></div>
+      </div>
+      <div class="parking-road"></div>
+      <div class="parking-row">
+        <div class="parking-slot"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot solar"></div>
+        <div class="parking-slot occupied"></div>
+      </div>
+      <div class="parking-road"></div>
+      <div class="parking-row">
+        <div class="parking-slot solar"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot"></div>
+        <div class="parking-slot occupied"></div>
+        <div class="parking-slot solar"></div>
+      </div>
+    </div>
+    <!-- Solar panels -->
+    <div class="solar-bank">
+      <div class="solar-cell"></div><div class="solar-cell"></div>
+      <div class="solar-cell"></div><div class="solar-cell"></div>
+      <div class="solar-cell"></div><div class="solar-cell"></div>
+      <div class="solar-cell"></div><div class="solar-cell"></div>
+    </div>
+    <!-- Control tower -->
+    <div class="control-tower">
+      <div class="tower-top"></div>
+      <div class="tower-beam"></div>
+    </div>
+    <div class="arch-label">PRE-GATE INTELLIGENT — ALI SABIEH</div>
+    <!-- Cert badges -->
+    <div class="cert-badges">
+      <span class="cert-badge cb-green">☀ Énergie Solaire</span>
+      <span class="cert-badge cb-blue">💧 Eau Autonome</span>
+      <span class="cert-badge cb-yellow">⭐ ESG Certifié</span>
+    </div>
+  </div>
+
+  <!-- Text Right -->
+  <div class="pw-right">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;">
+      <div class="logo-box">DPCR <span>DJIBOUTI</span></div>
+      <span style="color:rgba(255,255,255,.4);font-size:.58rem;">📅 20 Avril 2026</span>
+    </div>
+    <div class="pilier-tag" style="position:relative;z-index:1;">Pilier 1 & 4 — Tech · RSE · ESG</div>
+    <div class="main-title" style="position:relative;z-index:1;">
+      FUTUR<br/><span>LOGISTIQUE</span><br/><span class="blue">VERT</span> &amp; DÉCONGESTIONNÉ
+    </div>
+    <div class="desc-text" style="position:relative;z-index:1;">
+      Le <strong style="color:#00FF88;">Pre-gate intelligent</strong> de DPCR SA redéfinit la gestion des flux en périphérie urbaine. Parc d'attente sécurisé, systèmes d'énergie et d'eau autonomes.
+    </div>
+    <div class="benefit-row" style="position:relative;z-index:1;">
+      <div class="benefit-item"><span class="benefit-icon">🚛</span><span>Réduction de la <span class="benefit-val">congestion urbaine</span> à Djibouti-ville</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🌿</span><span>Baisse des <span class="benefit-val">émissions carbone</span> en zone portuaire</span></div>
+      <div class="benefit-item"><span class="benefit-icon">☀</span><span><span class="benefit-val">Panneaux solaires</span> et gestion autonome de l'énergie</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🔗</span><span>Optimisation des <span class="benefit-val">rotations portuaires</span> DPCS/FMS</span></div>
+    </div>
+    <div class="partners-row" style="position:relative;z-index:1;">
+      <span class="partner-chip">🇪🇺 UE · AFD</span>
+      <span class="partner-chip">TradeMark Africa</span>
+      <span class="partner-chip">EIES en cours</span>
+    </div>
+    <div class="hashtags" style="position:relative;z-index:1;">#LogistiqueDurable #PreGate #DPCR #GreenPorts #Djibouti</div>
+    <div class="footer-bar">
+      <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj</span>
+      <span>📍 DIFTZ Tower, Djibouti &nbsp;|&nbsp; dpcr.dj</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SQUARE 1:1 ═══ -->
+<div class="label">📌 Post Facebook — 1:1 — Lundi 20 Avril 2026</div>
+<div class="post-sq">
+  <div class="hex-bg"></div>
+  <div class="sq-content">
+    <div class="sq-top">
+      <div style="border:2px solid rgba(0,255,136,.4);padding:4px 9px;font-weight:900;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#fff;line-height:1.4;">DPCR<br/><span style="color:#00FF88;">DJIBOUTI</span></div>
+      <span style="background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.3);color:#00FF88;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">🌱 RSE &amp; ESG</span>
+    </div>
+    <div style="font-size:3rem;text-align:center;margin:4px 0;">🌱</div>
+    <div class="sq-title">UN FUTUR<br/><span>LOGISTIQUE</span><br/>VERT</div>
+    <div style="font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:8px;border-left:3px solid rgba(0,255,136,.3);padding-left:10px;">
+      Le projet <strong style="color:#00FF88;">Pre-gate intelligent</strong> de DPCR SA : parc d'attente écoresponsable avec systèmes autonomes d'énergie et d'eau, services de maintenance intégrés.
+    </div>
+    <div class="esg-block">
+      <div class="esg-title">📊 Indicateurs ESG — Pre-gate</div>
+      <div class="esg-meter">
+        <div class="esg-bar-row">
+          <span class="esg-lbl">Énergie solaire</span>
+          <div class="esg-track"><div class="esg-fill ef1"></div></div>
+          <span class="esg-val">80%</span>
+        </div>
+        <div class="esg-bar-row">
+          <span class="esg-lbl">Eau recyclée</span>
+          <div class="esg-track"><div class="esg-fill ef2"></div></div>
+          <span class="esg-val">65%</span>
+        </div>
+        <div class="esg-bar-row">
+          <span class="esg-lbl">Réduct. CO₂</span>
+          <div class="esg-track"><div class="esg-fill ef3"></div></div>
+          <span class="esg-val">90%</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;">
+      <span style="padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;background:rgba(0,255,136,.06);color:rgba(255,255,255,.7);border:1px solid rgba(0,255,136,.2);">🇪🇺 UE / AFD</span>
+      <span style="padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;background:rgba(0,255,136,.06);color:rgba(255,255,255,.7);border:1px solid rgba(0,255,136,.2);">TradeMark Africa</span>
+      <span style="padding:3px 10px;border-radius:20px;font-size:.6rem;font-weight:700;background:rgba(0,207,255,.06);color:rgba(0,207,255,.8);border:1px solid rgba(0,207,255,.2);">EIES en cours</span>
+    </div>
+    <div style="font-size:.65rem;color:rgba(0,255,136,.4);margin-bottom:8px;">#LogistiqueDurable #PreGate #DPCR #GreenPorts #Djibouti</div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:10px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.4);">
+      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span><span>📍 DIFTZ Tower</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

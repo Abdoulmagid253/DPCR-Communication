@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DPCR | CorridorVision AI — 14 Avril 2026</title>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#050A14; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
+    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+
+    /* ── 16:9 split "Interface IA" ─────── */
+    .post-wide {
+      width:900px; height:506px;
+      border-radius:10px;
+      box-shadow:0 12px 60px rgba(0,100,255,.3);
+      overflow:hidden; position:relative;
+      background:#050A14; display:flex;
+    }
+
+    /* Left — Classical road view */
+    .pw-classic {
+      width:44%;
+      background:linear-gradient(to bottom, #8B9970 0%, #7A8A60 30%, #555 55%, #444 100%);
+      position:relative; overflow:hidden;
+    }
+    .classic-sky {
+      position:absolute; top:0; left:0; right:0; height:45%;
+      background:linear-gradient(to bottom, #D4A070 0%, #C88850 30%, #8B6030 100%);
+    }
+    .classic-road {
+      position:absolute; bottom:0; left:0; right:0; height:45%;
+      background:linear-gradient(to top, #333 0%, #555 50%, #666 100%);
+    }
+    .classic-center {
+      position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:3px; height:45%;
+      background:repeating-linear-gradient(to top, #FFF 0, #FFF 8px, transparent 8px, transparent 16px);
+    }
+    /* Cracks / damage markers */
+    .crack { position:absolute; width:30px; height:2px; background:rgba(0,0,0,.6); border-radius:2px; }
+    .c1 { bottom:28%; left:25%; transform:rotate(30deg); width:20px; }
+    .c2 { bottom:22%; left:60%; transform:rotate(-20deg); width:25px; }
+    .c3 { bottom:35%; left:40%; transform:rotate(10deg); }
+    .classic-label {
+      position:absolute; top:10px; left:50%; transform:translateX(-50%);
+      background:rgba(0,0,0,.5); color:white;
+      font-size:.55rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; padding:4px 8px; border-radius:8px; white-space:nowrap;
+    }
+    .classic-label.bad { background:rgba(200,30,30,.7); }
+
+    /* Split divider */
+    .split-divider {
+      width:32px; background:#050A14;
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; gap:4px; z-index:5;
+    }
+    .split-arrow { color:#00CFFF; font-size:.8rem; font-weight:900; }
+    .split-line { width:1px; height:20px; background:rgba(0,207,255,.4); }
+
+    /* Right — AI vision view */
+    .pw-ai {
+      flex:1;
+      background:linear-gradient(135deg, #050A14 0%, #0A1628 60%, #001040 100%);
+      position:relative; overflow:hidden;
+    }
+    /* Grid overlay */
+    .ai-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(0,207,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,207,255,.05) 1px, transparent 1px);
+      background-size:30px 30px;
+    }
+    /* Road base in AI view */
+    .ai-road {
+      position:absolute; bottom:0; left:0; right:0; height:45%;
+      background:linear-gradient(to top, rgba(0,10,50,.8) 0%, rgba(0,30,80,.4) 100%);
+    }
+    .ai-road-line {
+      position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+      width:2px; height:45%;
+      background:repeating-linear-gradient(to top, rgba(0,207,255,.5) 0, rgba(0,207,255,.5) 6px, transparent 6px, transparent 12px);
+    }
+
+    /* Detection bounding boxes */
+    .bbox {
+      position:absolute;
+      border:2px solid;
+      border-radius:3px;
+    }
+    .bbox-label {
+      position:absolute;
+      top:-18px; left:0;
+      font-size:.45rem; font-weight:700; letter-spacing:.5px;
+      padding:2px 6px; border-radius:3px 3px 0 0;
+      white-space:nowrap;
+    }
+    .bbox-score {
+      position:absolute;
+      bottom:-16px; right:0;
+      font-size:.42rem; color:#fff; font-weight:700;
+      letter-spacing:.5px;
+    }
+    /* Green = good */
+    .bb-good { border-color:rgba(0,255,136,.8); }
+    .bb-good .bbox-label { background:rgba(0,255,136,.2); color:#00FF88; }
+    /* Red = crack */
+    .bb-crack { border-color:rgba(255,50,50,.8); }
+    .bb-crack .bbox-label { background:rgba(255,50,50,.2); color:#FF5555; }
+    /* Orange = wear */
+    .bb-wear { border-color:rgba(255,150,30,.8); }
+    .bb-wear .bbox-label { background:rgba(255,150,30,.2); color:#FFAA30; }
+
+    /* Scanline effect */
+    .scanline {
+      position:absolute; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, rgba(0,207,255,.5), transparent);
+      animation:scan 2s linear infinite;
+    }
+    @keyframes scan { 0%{top:0%} 100%{top:100%} }
+
+    /* AI label */
+    .ai-hud {
+      position:absolute; top:8px; left:8px;
+      background:rgba(0,207,255,.1);
+      border:1px solid rgba(0,207,255,.3);
+      border-radius:6px; padding:6px 10px;
+      font-size:.5rem; color:#00CFFF; font-weight:700;
+      letter-spacing:1px; line-height:1.6;
+    }
+    .ai-hud .live-dot {
+      display:inline-block; width:6px; height:6px;
+      background:#00FF88; border-radius:50%;
+      margin-right:4px; vertical-align:middle;
+    }
+
+    /* Main content area — right side of right panel */
+    .ai-text-overlay {
+      position:absolute; bottom:0; left:0; right:0;
+      background:linear-gradient(to top, rgba(5,10,20,.95) 60%, transparent 100%);
+      padding:20px 20px 10px;
+    }
+    .ai-title {
+      font-size:1.4rem; font-weight:900; color:#fff;
+      text-transform:uppercase; line-height:1.2; margin-bottom:6px;
+    }
+    .ai-title span { color:#00CFFF; }
+    .ai-sub { font-size:.68rem; color:rgba(255,255,255,.7); line-height:1.4; }
+    .ai-hashtags { font-size:.6rem; color:rgba(0,207,255,.5); margin-top:6px; }
+
+    /* Top section of right panel */
+    .ai-top {
+      position:absolute; top:0; left:0; right:0;
+      padding:14px 16px;
+      display:flex; justify-content:space-between; align-items:flex-start;
+    }
+    .logo-box {
+      border:2px solid rgba(0,207,255,.5);
+      padding:4px 9px; font-weight:900; font-size:.58rem;
+      letter-spacing:2px; text-transform:uppercase;
+      color:#fff; line-height:1.4;
+    }
+    .logo-box span { color:#00CFFF; }
+    .pilier-tag {
+      background:rgba(0,207,255,.08);
+      border:1px solid rgba(0,207,255,.3);
+      color:#00CFFF; font-size:.55rem; font-weight:700;
+      letter-spacing:1px; text-transform:uppercase;
+      padding:4px 10px; border-radius:20px;
+    }
+
+    /* Footer */
+    .footer-bar {
+      position:absolute; bottom:0; left:0; right:0; height:36px;
+      background:rgba(0,0,0,.5);
+      border-top:1px solid rgba(0,207,255,.15);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 30px; font-size:.6rem; color:rgba(255,255,255,.45);
+    }
+
+    /* Progress stats row */
+    .stats-row {
+      display:flex; gap:12px; margin:6px 0;
+    }
+    .stat-chip {
+      background:rgba(0,207,255,.08);
+      border:1px solid rgba(0,207,255,.2);
+      border-radius:6px; padding:4px 10px;
+      text-align:center;
+    }
+    .stat-num { font-size:.9rem; font-weight:900; color:#00CFFF; }
+    .stat-lbl { font-size:.5rem; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.5px; }
+
+    /* ── SQUARE 1:1 ─────────────────────── */
+    .post-sq {
+      width:600px; height:600px;
+      border-radius:10px;
+      box-shadow:0 12px 50px rgba(0,100,255,.3);
+      overflow:hidden; position:relative;
+      background:linear-gradient(135deg, #050A14 0%, #0A1628 60%, #001040 100%);
+    }
+    .sq-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(0,207,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,207,255,.04) 1px, transparent 1px);
+      background-size:40px 40px;
+    }
+    .sq-content {
+      position:relative; z-index:2;
+      padding:28px; height:100%;
+      display:flex; flex-direction:column;
+    }
+    .brain-icon { font-size:4rem; text-align:center; margin:10px 0; }
+    .sq-title { font-size:1.8rem; font-weight:900; color:#fff; text-transform:uppercase; line-height:1.2; text-align:center; margin-bottom:8px; }
+    .sq-title span { color:#00CFFF; }
+    .sq-badge-row { display:flex; gap:8px; justify-content:center; margin:10px 0; }
+    .sq-badge { padding:4px 12px; border-radius:20px; font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+    .sb1 { background:rgba(0,207,255,.1); color:#00CFFF; border:1px solid rgba(0,207,255,.3); }
+    .sb2 { background:rgba(255,195,0,.1); color:#FFC300; border:1px solid rgba(255,195,0,.3); }
+    .km-bar {
+      background:rgba(0,207,255,.05); border:1px solid rgba(0,207,255,.2);
+      border-radius:8px; padding:12px 16px;
+      display:flex; align-items:center; gap:10px; margin:10px 0;
+    }
+    .km-num { font-size:2rem; font-weight:900; color:#FFC300; }
+    .km-desc { font-size:.72rem; color:rgba(255,255,255,.7); line-height:1.4; }
+    .tech-row { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+    .tech-chip { padding:3px 8px; border-radius:4px; font-size:.58rem; font-weight:700; letter-spacing:.5px; background:rgba(255,255,255,.06); color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.1); }
+  </style>
+</head>
+<body>
+
+<div class="label">📌 Post LinkedIn/X — 16:9 Interface IA — Mardi 14 Avril 2026</div>
+
+<!-- ═══ WIDE 16:9 ═══ -->
+<div class="post-wide">
+  <!-- Left: Classic view -->
+  <div class="pw-classic">
+    <div class="classic-sky"></div>
+    <div class="classic-road"></div>
+    <div class="classic-center"></div>
+    <div class="crack c1"></div>
+    <div class="crack c2"></div>
+    <div class="crack c3"></div>
+    <div class="classic-label">ROUTE STANDARD</div>
+    <div class="classic-label bad" style="bottom:30%;left:50%;transform:translateX(-50%);top:auto;">⚠ Dégradations non détectées</div>
+    <!-- Label overlay -->
+    <div style="position:absolute;bottom:10px;left:10px;font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;">Avant CorridorVision AI</div>
+  </div>
+
+  <!-- Split -->
+  <div class="split-divider">
+    <div class="split-line"></div>
+    <div class="split-arrow">→</div>
+    <div class="split-line"></div>
+    <div style="color:rgba(0,207,255,.5);font-size:.45rem;letter-spacing:.5px;writing-mode:vertical-rl;text-orientation:mixed;text-transform:uppercase;transform:rotate(180deg);">IA</div>
+    <div class="split-line"></div>
+    <div class="split-arrow">→</div>
+    <div class="split-line"></div>
+  </div>
+
+  <!-- Right: AI vision -->
+  <div class="pw-ai">
+    <div class="ai-grid"></div>
+    <div class="ai-road"></div>
+    <div class="ai-road-line"></div>
+    <div class="scanline"></div>
+
+    <!-- Detection boxes -->
+    <div class="bbox bb-crack" style="bottom:22%;left:8%;width:55px;height:30px;">
+      <div class="bbox-label">FISSURE</div>
+      <div class="bbox-score">conf: 94%</div>
+    </div>
+    <div class="bbox bb-wear" style="bottom:28%;left:50%;width:70px;height:35px;">
+      <div class="bbox-label">USURE — ZONE</div>
+      <div class="bbox-score">conf: 88%</div>
+    </div>
+    <div class="bbox bb-good" style="bottom:18%;right:5%;width:60px;height:40px;">
+      <div class="bbox-label">BON ÉTAT</div>
+      <div class="bbox-score">conf: 99%</div>
+    </div>
+    <div class="bbox bb-crack" style="bottom:32%;left:30%;width:40px;height:22px;">
+      <div class="bbox-label">NIDS</div>
+      <div class="bbox-score">conf: 91%</div>
+    </div>
+
+    <!-- HUD -->
+    <div class="ai-hud">
+      <div><span class="live-dot"></span>LIVE — CorridorVision AI</div>
+      <div>RapidCanvas × 4C Solutions</div>
+      <div>Lat: 11.825°N  Lon: 42.590°E</div>
+    </div>
+
+    <div class="ai-top">
+      <div></div>
+      <div class="logo-box">DPCR <span>DJIBOUTI</span></div>
+    </div>
+
+    <div class="ai-text-overlay">
+      <div class="ai-title">CORRIDOR<span>VISION</span> AI</div>
+      <div class="stats-row">
+        <div class="stat-chip"><div class="stat-num">642</div><div class="stat-lbl">km couverts</div></div>
+        <div class="stat-chip"><div class="stat-num">RT</div><div class="stat-lbl">Temps réel</div></div>
+        <div class="stat-chip"><div class="stat-num">AI</div><div class="stat-lbl">Vision IA</div></div>
+      </div>
+      <div class="ai-sub">Détection prédictive des dégradations — maintenance proactive — zéro interruption de service.</div>
+      <div class="ai-hashtags">#CorridorVisionAI #Innovation #IA #SmartInfrastructure #DPCR</div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span>📅 14 Avril 2026 &nbsp;|&nbsp; Pilier 1 — Avant-Garde Technologique</span>
+    <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj &nbsp;|&nbsp; DIFTZ Tower, Djibouti</span>
+  </div>
+</div>
+
+<!-- ═══ SQUARE 1:1 ═══ -->
+<div class="label">📌 Post LinkedIn/X — 1:1 — Mardi 14 Avril 2026</div>
+<div class="post-sq">
+  <div class="sq-grid"></div>
+  <div class="scanline"></div>
+  <div class="sq-content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div style="border:2px solid rgba(0,207,255,.5);padding:4px 9px;font-weight:900;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:#fff;line-height:1.4;">DPCR <span style="color:#00CFFF;">DJIBOUTI</span></div>
+      <span style="background:rgba(0,207,255,.08);border:1px solid rgba(0,207,255,.3);color:#00CFFF;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">📅 14 Avril 2026</span>
+    </div>
+    <div class="brain-icon">🧠</div>
+    <div class="sq-title">QUAND L'IA<br/><span>AUSCULTE</span><br/>NOS ROUTES</div>
+    <div class="sq-badge-row">
+      <span class="sq-badge sb1">CorridorVision AI</span>
+      <span class="sq-badge sb2">RapidCanvas × 4C</span>
+    </div>
+    <div class="km-bar">
+      <div class="km-num">642 km</div>
+      <div class="km-desc">de réseau analysé en <strong style="color:#FFC300;">temps réel</strong> par vision par ordinateur</div>
+    </div>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:8px;border-left:3px solid rgba(0,207,255,.3);padding-left:10px;">
+      De la maintenance <strong style="color:#F5821F;">réactive</strong> à la maintenance <strong style="color:#00FF88;">prédictive</strong> : DPCR réinvente la gestion de l'infrastructure routière.
+    </div>
+    <div class="tech-row">
+      <span class="tech-chip">Vision par ordinateur</span>
+      <span class="tech-chip">Deep Learning</span>
+      <span class="tech-chip">Cartographie dynamique</span>
+      <span class="tech-chip">RFID / FMS</span>
+    </div>
+    <div style="font-size:.65rem;color:rgba(0,207,255,.4);margin-bottom:8px;">#Innovation #IA #SmartInfrastructure #DPCR #Djibouti</div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:10px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.4);margin-top:auto;">
+      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span><span>📍 DIFTZ Tower</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
