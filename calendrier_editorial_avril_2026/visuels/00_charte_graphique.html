@@ -2,539 +2,515 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <title>DPCR | Charte Graphique — Avril 2026</title>
+  <title>DPCR | Charte Graphique Digitale — 2026</title>
   <style>
     :root {
-      --blue-deep:   #00235A;
-      --blue-mid:    #0052A5;
-      --blue-light:  #1A78C2;
-      --cyan:        #00CFFF;
-      --orange:      #F5821F;
-      --yellow:      #FFC300;
-      --green:       #0A7A43;
-      --green-light: #00FF88;
-      --purple:      #7B22B4;
-      --purple-light:#A855F7;
-      --white:       #FFFFFF;
-      --grey-bg:     #F4F6F9;
-      --grey-dark:   #1A1A2E;
+      --bordeaux: #7D1728;
+      --noir:     #000000;
+      --blanc:    #FFFFFF;
+      --gris-bg:  #F7F7F7;
+      --gris-brd: #E0E0E0;
     }
     * { box-sizing:border-box; margin:0; padding:0; }
     body {
-      width:1200px;
-      font-family:'Segoe UI', Arial, sans-serif;
-      background:#F4F6F9;
-      color:#1A1A2E;
+      width: 1200px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--blanc);
+      color: var(--noir);
     }
 
     /* ── HEADER ─────────────────────────── */
     .header {
-      background:linear-gradient(135deg,#00235A 0%,#0052A5 60%,#1A78C2 100%);
-      color:#fff; padding:40px 50px 30px;
-      display:flex; align-items:center; justify-content:space-between;
+      background: var(--bordeaux);
+      color: var(--blanc);
+      padding: 44px 56px 34px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
     }
-    .logo-block { display:flex; align-items:center; gap:18px; }
-    .logo-box {
-      border:3px solid #FFC300;
-      padding:10px 18px; font-weight:900; font-size:1rem;
-      letter-spacing:3px; text-transform:uppercase; line-height:1.4; color:#fff;
+    .logo-zone { display: flex; flex-direction: column; gap: 10px; }
+    .logo-dpcr {
+      display: flex; flex-direction: column; align-items: flex-start;
     }
-    .logo-box span { color:#FFC300; }
-    .header-title h1 { font-size:1.9rem; font-weight:900; }
-    .header-title p { font-size:.8rem; color:rgba(255,255,255,.7); letter-spacing:2px; text-transform:uppercase; margin-top:4px; }
-    .header-meta { text-align:right; font-size:.75rem; color:rgba(255,255,255,.6); line-height:1.8; }
-    .header-meta strong { color:#FFC300; }
+    .logo-dpcr .letters {
+      font-size: 2.4rem; font-weight: 900; letter-spacing: 6px;
+      color: var(--blanc); text-transform: uppercase;
+      line-height: 1;
+    }
+    .logo-dpcr .full-name {
+      font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.75); margin-top: 4px;
+    }
+    .header-center { flex: 1; padding: 0 30px; }
+    .header-center h1 {
+      font-size: 1.85rem; font-weight: 900; letter-spacing: 0.5px;
+      text-transform: uppercase; line-height: 1.2;
+    }
+    .header-center p {
+      font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); margin-top: 8px;
+    }
+    .header-right {
+      text-align: right; font-size: 0.72rem;
+      color: rgba(255,255,255,0.65); line-height: 2;
+    }
+    .header-right strong { color: var(--blanc); font-size: 0.82rem; }
 
-    /* ── SECTION TITLE ───────────────────── */
-    section { padding:36px 50px; }
+    /* ── SECTION ─────────────────────────── */
+    section { padding: 40px 56px; }
+    section:nth-child(even) { background: var(--gris-bg); }
+    .sec-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--bordeaux);
+      margin-bottom: 6px;
+    }
     .sec-title {
-      font-size:.85rem; font-weight:900; text-transform:uppercase;
-      letter-spacing:2px; color:#00235A;
-      border-left:5px solid #F5821F; padding:8px 14px;
-      background:#fff; margin-bottom:24px;
-      box-shadow:0 2px 6px rgba(0,0,0,.06);
+      font-size: 1.1rem; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--noir);
+      border-bottom: 3px solid var(--bordeaux);
+      padding-bottom: 10px; margin-bottom: 28px;
     }
 
     /* ── PALETTE ─────────────────────────── */
-    .palette-grid {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
-    }
+    .palette-row { display: flex; gap: 20px; }
     .color-card {
-      border-radius:10px; overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      flex: 1; border-radius: 6px; overflow: hidden;
+      border: 1px solid var(--gris-brd);
     }
-    .color-swatch { height:90px; }
-    .color-info {
-      background:#fff; padding:12px 14px;
-      border:1px solid #E8ECF2; border-top:none; border-radius:0 0 10px 10px;
+    .swatch { height: 100px; }
+    .color-info { padding: 14px 16px; background: var(--blanc); }
+    .color-name { font-size: 0.78rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+    .color-hex { font-size: 1rem; font-weight: 700; font-family: monospace; margin: 4px 0; }
+    .color-use { font-size: 0.68rem; color: #555; line-height: 1.5; margin-top: 6px; }
+    .color-forbidden {
+      margin-top: 12px;
+      background: #FFF3F3; border: 1px solid #EEC0C0;
+      border-radius: 4px; padding: 10px 14px;
+      font-size: 0.68rem; color: #7D1728; line-height: 1.5;
     }
-    .color-name { font-size:.75rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
-    .color-hex { font-size:.85rem; font-weight:700; font-family:monospace; color:#555; }
-    .color-usage { font-size:.65rem; color:#888; margin-top:4px; line-height:1.4; }
 
     /* ── TYPOGRAPHY ──────────────────────── */
-    .typo-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .typo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .typo-card {
-      background:#fff; border-radius:10px; padding:24px;
-      box-shadow:0 4px 12px rgba(0,0,0,.07);
-      border:1px solid #E8ECF2;
+      background: var(--blanc); border: 1px solid var(--gris-brd);
+      border-radius: 6px; padding: 24px;
     }
-    .typo-label { font-size:.6rem; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:10px; }
-    .type-h1 { font-size:2.2rem; font-weight:900; color:#00235A; text-transform:uppercase; letter-spacing:1px; line-height:1.1; }
-    .type-h2 { font-size:1.5rem; font-weight:700; color:#0052A5; text-transform:uppercase; letter-spacing:.5px; }
-    .type-h3 { font-size:1.1rem; font-weight:700; color:#1A78C2; }
-    .type-body { font-size:.9rem; color:#3A3A3A; line-height:1.6; }
-    .type-caption { font-size:.72rem; color:#888; letter-spacing:.5px; }
-    .type-hashtag { font-size:.8rem; color:#0052A5; font-weight:700; }
+    .typo-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+    .t-h1 { font-size: 2rem; font-weight: 900; text-transform: uppercase; color: var(--bordeaux); letter-spacing: 1px; line-height: 1.1; }
+    .t-h2 { font-size: 1.3rem; font-weight: 700; text-transform: uppercase; color: var(--noir); }
+    .t-body { font-size: 0.9rem; color: var(--noir); line-height: 1.7; margin-top: 8px; }
+    .t-caption { font-size: 0.7rem; color: #666; letter-spacing: 0.5px; margin-top: 8px; }
+    .t-hashtag { font-size: 0.82rem; font-weight: 600; color: var(--bordeaux); margin-top: 6px; }
+    .t-note { font-size: 0.62rem; color: #999; margin-top: 10px; border-top: 1px solid #EEE; padding-top: 8px; }
 
     /* ── LOGO USAGE ──────────────────────── */
-    .logo-usage-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .logo-usage-card {
-      border-radius:10px; overflow:hidden;
-      box-shadow:0 4px 12px rgba(0,0,0,.1);
-    }
-    .lu-bg { height:110px; display:flex; align-items:center; justify-content:center; }
-    .lu-info { background:#fff; padding:10px 14px; font-size:.68rem; color:#555; border:1px solid #E8ECF2; border-top:none; }
-    .lu-info strong { color:#00235A; }
-    .logo-demo { border:2.5px solid; padding:8px 14px; font-weight:900; font-size:.75rem; letter-spacing:2.5px; text-transform:uppercase; line-height:1.4; }
+    .logo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .logo-card { border-radius: 6px; overflow: hidden; border: 1px solid var(--gris-brd); }
+    .logo-bg { height: 130px; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .logo-note { padding: 12px 14px; font-size: 0.68rem; color: #555; background: var(--blanc); border-top: 1px solid var(--gris-brd); line-height: 1.5; }
+    .logo-note strong { color: var(--noir); }
 
-    /* ── PILLAR CARDS ────────────────────── */
-    .pillar-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-    .pillar-card {
-      border-radius:10px; overflow:hidden;
-      box-shadow:0 4px 14px rgba(0,0,0,.1);
+    /* Recreated logo display */
+    .logo-display {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
     }
-    .pillar-header {
-      padding:16px 16px 12px;
-      color:#fff; position:relative;
+    .logo-icon-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 1.4rem; line-height: 1;
     }
-    .pillar-num { font-size:3rem; font-weight:900; opacity:.2; position:absolute; top:8px; right:10px; }
-    .pillar-icon { font-size:1.6rem; margin-bottom:6px; }
-    .pillar-title { font-size:.75rem; font-weight:900; text-transform:uppercase; letter-spacing:.5px; }
-    .pillar-body { background:#fff; padding:14px 16px; }
-    .pillar-color-chip { display:inline-block; width:18px; height:18px; border-radius:50%; margin-right:4px; vertical-align:middle; }
-    .pillar-hashtags { font-size:.6rem; color:#555; line-height:1.8; }
-    .pillar-topics { font-size:.65rem; color:#777; margin-top:6px; line-height:1.6; border-top:1px solid #F0F0F0; padding-top:8px; }
+    .logo-text-bordeaux {
+      font-size: 1.4rem; font-weight: 900; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--bordeaux);
+    }
+    .logo-text-blanc {
+      font-size: 1.4rem; font-weight: 900; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--blanc);
+    }
+    .logo-subtext {
+      font-size: 0.45rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--noir); margin-top: 2px;
+    }
+    .logo-subtext-blanc {
+      font-size: 0.45rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 2px;
+    }
 
-    /* ── POST FORMAT EXAMPLES ────────────── */
-    .format-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .format-card {
-      background:#fff; border-radius:10px;
-      box-shadow:0 4px 12px rgba(0,0,0,.07);
-      overflow:hidden; border:1px solid #E8ECF2;
+    /* ── FORMATS ─────────────────────────── */
+    .format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .format-card { border-radius: 6px; overflow: hidden; border: 1px solid var(--gris-brd); }
+    .format-frame {
+      display: flex; align-items: center; justify-content: center;
+      background: #F0F0F0; position: relative;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: #AAA;
     }
-    .format-preview {
-      display:flex; align-items:center; justify-content:center;
-      font-size:.7rem; font-weight:700; color:rgba(255,255,255,.7);
-      text-transform:uppercase; letter-spacing:2px;
-      position:relative; overflow:hidden;
+    .format-ratio {
+      border: 2px dashed rgba(125,23,40,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 900; color: var(--bordeaux);
     }
-    .format-label {
-      position:absolute; bottom:6px; right:8px;
-      background:rgba(0,0,0,.4); color:#fff;
-      font-size:.55rem; padding:2px 8px; border-radius:10px;
-    }
-    .format-info { padding:12px 14px; }
-    .format-name { font-size:.75rem; font-weight:800; color:#00235A; }
-    .format-dims { font-size:.68rem; color:#888; font-family:monospace; }
-    .format-use { font-size:.65rem; color:#555; margin-top:4px; line-height:1.4; }
+    .format-info { padding: 14px 16px; background: var(--blanc); }
+    .format-name { font-size: 0.78rem; font-weight: 900; text-transform: uppercase; color: var(--noir); }
+    .format-dims { font-size: 0.7rem; font-family: monospace; color: #666; margin-top: 3px; }
+    .format-use { font-size: 0.65rem; color: #555; margin-top: 6px; line-height: 1.4; }
 
-    /* ── FOOTER STANDARD ─────────────────── */
-    .footer-demo {
-      background:#00235A; border-radius:10px;
-      padding:14px 24px; display:flex; justify-content:space-between; align-items:center;
-      box-shadow:0 4px 12px rgba(0,35,90,.3);
+    /* ── FOOTER DEMO ─────────────────────── */
+    .footer-demo-bordeaux {
+      background: var(--bordeaux); color: var(--blanc);
+      border-radius: 6px; padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
     }
-    .footer-demo .item { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,.8); font-size:.78rem; }
-    .footer-demo .item span { color:#FFC300; font-size:1rem; }
+    .footer-demo-noir {
+      background: var(--noir); color: var(--blanc);
+      border-radius: 6px; padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-demo-bordeaux .f-item,
+    .footer-demo-noir .f-item {
+      font-size: 0.75rem; display: flex; align-items: center; gap: 6px;
+    }
+    .footer-urgence {
+      background: var(--bordeaux); color: var(--blanc);
+      border-radius: 6px; padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px;
+    }
+    .footer-note { font-size: 0.68rem; color: #666; margin-top: 10px; line-height: 1.5; }
+
+    /* ── VISUAL ANATOMY ──────────────────── */
+    .anatomy-card {
+      background: var(--blanc); border: 1px solid var(--gris-brd);
+      border-radius: 6px; overflow: hidden;
+    }
+    .anatomy-visual {
+      height: 320px; position: relative; background: #F0F0F0;
+      display: flex;
+    }
+    .anatomy-photo-zone {
+      flex: 1; background: #D8D8D8;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 6px;
+    }
+    .anatomy-photo-label {
+      font-size: 0.62rem; color: #999; text-transform: uppercase; letter-spacing: 1.5px; text-align: center;
+    }
+    .anatomy-photo-icon { font-size: 2.5rem; opacity: 0.3; }
+    .anatomy-text-zone {
+      width: 340px; flex-shrink: 0;
+      background: var(--blanc); padding: 28px 24px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-left: 1px solid var(--gris-brd);
+    }
+    .anatomy-logo-zone {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 14px;
+    }
+    .anatomy-logo-rect { width: 60px; height: 28px; background: var(--gris-brd); border-radius: 3px; }
+    .anatomy-title { font-size: 1.1rem; font-weight: 900; text-transform: uppercase; color: var(--bordeaux); line-height: 1.2; margin-bottom: 8px; }
+    .anatomy-body { font-size: 0.7rem; color: var(--noir); line-height: 1.5; }
+    .anatomy-footer { background: var(--bordeaux); color: var(--blanc); padding: 8px 12px; font-size: 0.58rem; border-radius: 4px; margin-top: 12px; }
+    .anatomy-annotations { padding: 20px 24px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; border-top: 1px solid var(--gris-brd); }
+    .annotation { display: flex; gap: 8px; }
+    .ann-num { width: 20px; height: 20px; background: var(--bordeaux); color: var(--blanc); border-radius: 50%; font-size: 0.6rem; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ann-text { font-size: 0.68rem; color: #555; line-height: 1.4; }
 
     /* ── PLATFORM TABLE ──────────────────── */
-    .platform-table { width:100%; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.08); }
-    .platform-table thead tr { background:#00235A; color:#fff; font-size:.72rem; text-transform:uppercase; letter-spacing:.5px; }
-    .platform-table th { padding:14px 16px; text-align:left; }
-    .platform-table td { padding:12px 16px; font-size:.78rem; border-bottom:1px solid #EEF0F4; }
-    .platform-table tbody tr:last-child td { border-bottom:none; }
-    .platform-table tbody tr:nth-child(even) { background:#FAFBFC; }
-    .tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:.62rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
-    .tag-li { background:#0A66C2; color:#fff; }
-    .tag-fb { background:#1877F2; color:#fff; }
-    .tag-tw { background:#1DA1F2; color:#fff; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--noir); color: var(--blanc); }
+    th { padding: 14px 16px; text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 13px 16px; font-size: 0.78rem; border-bottom: 1px solid var(--gris-brd); }
+    tbody tr:nth-child(even) { background: var(--gris-bg); }
+    .plat-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .li { background: #0A66C2; color: #fff; }
+    .fb { background: #1877F2; color: #fff; }
+    .tw { background: #1DA1F2; color: #fff; }
 
     /* ── PAGE FOOTER ─────────────────────── */
-    footer {
-      background:#00235A; color:rgba(255,255,255,.6);
-      text-align:center; padding:18px; font-size:.7rem;
+    .page-footer {
+      background: var(--noir); color: rgba(255,255,255,0.6);
+      text-align: center; padding: 20px; font-size: 0.7rem;
     }
-    footer strong { color:#FFC300; }
+    .page-footer strong { color: var(--blanc); }
   </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="logo-block">
-    <div class="logo-box">DPCR<br/><span>DJIBOUTI</span></div>
-    <div>
-      <div class="header-title">
-        <h1>Charte Graphique Digitale</h1>
-        <p>Calendrier Éditorial · Avril 2026</p>
-      </div>
+  <div class="logo-zone">
+    <div class="logo-dpcr">
+      <div class="letters">DPCR</div>
+      <div class="full-name">Djibouti Ports Corridor Road</div>
     </div>
   </div>
-  <div class="header-meta">
-    <strong>DPCR SA</strong><br/>
+  <div class="header-center">
+    <h1>Charte Graphique<br/>Identité Visuelle Digitale</h1>
+    <p>Calendrier Editorial — Avril 2026</p>
+  </div>
+  <div class="header-right">
+    <strong>Département Communication<br/>& Relations Publiques</strong><br/>
     Djibouti Ports Corridor Road SA<br/>
-    Cabinet in'COM<br/>
-    Vision Djibouti 2035
+    info@dpcr.dj — dpcr.dj
   </div>
 </div>
 
-<!-- ═══ 1. PALETTE DE COULEURS ═══ -->
-<section style="background:#fff;">
-  <div class="sec-title">01 — Palette de Couleurs Institutionnelle</div>
-  <div class="palette-grid">
-    <!-- Blues -->
+<!-- ═══ 01 PALETTE ═══ -->
+<section>
+  <div class="sec-label">01</div>
+  <div class="sec-title">Palette de Couleurs — Trois Couleurs, Aucune Exception</div>
+  <div class="palette-row">
     <div class="color-card">
-      <div class="color-swatch" style="background:#00235A;"></div>
+      <div class="swatch" style="background:#7D1728;"></div>
       <div class="color-info">
-        <div class="color-name" style="color:#00235A;">Bleu Profond</div>
-        <div class="color-hex">#00235A</div>
-        <div class="color-usage">Fond principal · En-têtes · Footer · Identité souveraine</div>
+        <div class="color-name" style="color:#7D1728;">Bordeaux — Couleur Principale</div>
+        <div class="color-hex">#7D1728</div>
+        <div class="color-use">Titres. Aplats de mise en valeur. Encarts. Boutons. Footer de sécurité. En-têtes de visuels. Fond du logo sur visuels clairs.</div>
       </div>
     </div>
     <div class="color-card">
-      <div class="color-swatch" style="background:#0052A5;"></div>
+      <div class="swatch" style="background:#000000;"></div>
       <div class="color-info">
-        <div class="color-name" style="color:#0052A5;">Bleu Institutionnel</div>
-        <div class="color-hex">#0052A5</div>
-        <div class="color-usage">Pilier 1 Tech · Pilier 2 Ops · Publications LinkedIn · Partenariats</div>
+        <div class="color-name">Noir — Couleur Secondaire</div>
+        <div class="color-hex">#000000</div>
+        <div class="color-use">Corps du texte. Icônes minimalistes. Tracés de type silhouette : pont, route, camion, bateau. Footer alternatif. Texte sur fond blanc.</div>
       </div>
     </div>
     <div class="color-card">
-      <div class="color-swatch" style="background:#1A78C2;"></div>
+      <div class="swatch" style="background:#FFFFFF; border: 1px solid #E0E0E0;"></div>
       <div class="color-info">
-        <div class="color-name" style="color:#1A78C2;">Bleu Actif</div>
-        <div class="color-hex">#1A78C2</div>
-        <div class="color-usage">Accents · Hashtags · Liens · Éléments interactifs</div>
-      </div>
-    </div>
-    <div class="color-card">
-      <div class="color-swatch" style="background:#00CFFF;"></div>
-      <div class="color-info">
-        <div class="color-name" style="color:#007FA5;">Cyan Tech</div>
-        <div class="color-hex">#00CFFF</div>
-        <div class="color-usage">IA · FMS · RFID · Technologie · Données temps réel</div>
-      </div>
-    </div>
-    <!-- Safety -->
-    <div class="color-card">
-      <div class="color-swatch" style="background:#F5821F;"></div>
-      <div class="color-info">
-        <div class="color-name" style="color:#C45A00;">Orange Sécurité</div>
-        <div class="color-hex">#F5821F</div>
-        <div class="color-usage">Pilier 3 Sécurité · Alertes · EPI · Badges d'urgence</div>
-      </div>
-    </div>
-    <div class="color-card">
-      <div class="color-swatch" style="background:#FFC300;"></div>
-      <div class="color-info">
-        <div class="color-name" style="color:#8A6500;">Jaune Signal</div>
-        <div class="color-hex">#FFC300</div>
-        <div class="color-usage">Accent premium · Chiffres clés · Logo accent · Call-to-action</div>
-      </div>
-    </div>
-    <!-- Green & Purple -->
-    <div class="color-card">
-      <div class="color-swatch" style="background:#0A7A43;"></div>
-      <div class="color-info">
-        <div class="color-name" style="color:#0A7A43;">Vert RSE</div>
-        <div class="color-hex">#0A7A43</div>
-        <div class="color-usage">Pilier 4 RSE · ESG · Pre-gate · Environnement · SCA Randa</div>
-      </div>
-    </div>
-    <div class="color-card">
-      <div class="color-swatch" style="background:#7B22B4;"></div>
-      <div class="color-info">
-        <div class="color-name" style="color:#7B22B4;">Violet Humain</div>
-        <div class="color-hex">#7B22B4</div>
-        <div class="color-usage">Journée OIT · Valorisation équipes · RSE sociale · Bien-être</div>
+        <div class="color-name">Blanc — Fond</div>
+        <div class="color-hex">#FFFFFF</div>
+        <div class="color-use">Fond principal de tous les visuels. Texte sur fond bordeaux ou noir. Zone typographique adjacente à la photo.</div>
       </div>
     </div>
   </div>
+  <div class="color-forbidden" style="margin-top:20px;">
+    Interdiction absolue d'utiliser toute autre couleur : bleu institutionnel, cyan, orange, jaune, vert, violet ou toute variation de ces teintes. La charte précédente est annulée.
+  </div>
 </section>
 
-<!-- ═══ 2. TYPOGRAPHIE ═══ -->
+<!-- ═══ 02 TYPOGRAPHIE ═══ -->
 <section>
-  <div class="sec-title">02 — Système Typographique</div>
+  <div class="sec-label">02</div>
+  <div class="sec-title">Système Typographique</div>
   <div class="typo-grid">
     <div class="typo-card">
-      <div class="typo-label">Titres d'Accroche — Posts Sociaux</div>
-      <div class="type-h1">SMART<br/>CORRIDORS</div>
-      <div style="margin-top:10px;font-size:.6rem;color:#aaa;">Police : Segoe UI / Arial · Grasse · Uppercase · 28–40px</div>
+      <div class="typo-label">Titre d'accroche — Publications sociales</div>
+      <div class="t-h1">CONTINUITÉ<br/>DES CORRIDORS</div>
+      <div class="t-note">Police sans-serif géométrique (Segoe UI, Arial). Gras. Majuscules. Couleur bordeaux #7D1728. Taille 28–40 px. Interligne 1.1.</div>
     </div>
     <div class="typo-card">
-      <div class="typo-label">Sous-titres & Piliers</div>
-      <div class="type-h2">Intégration Régionale</div>
-      <div style="margin-top:8px;" class="type-h3">Excellence Opérationnelle 24/7</div>
-      <div style="margin-top:6px;font-size:.6rem;color:#aaa;">Semibold · Uppercase / Titlecase · 16–24px</div>
+      <div class="typo-label">Sous-titre et données chiffrées</div>
+      <div class="t-h2">RN18 — 74 kilomètres en chantier</div>
+      <div class="t-body">Les équipes DPCR SA assurent la surveillance du réseau routier 24 heures sur 24, 7 jours sur 7. Les patrouilles opèrent en coordination avec les Escadrons de Sécurité Routière.</div>
+      <div class="t-caption">Police régulière. Couleur noire. Taille 14–16 px. Interligne 1.6.</div>
     </div>
     <div class="typo-card">
-      <div class="typo-label">Corps de Texte — LinkedIn B2B</div>
-      <div class="type-body">DPCR SA consolide la chaîne logistique de l'Afrique de l'Est. En réduisant les temps de transit et en connectant les économies enclavées à nos terminaux portuaires.</div>
-      <div style="margin-top:8px;font-size:.6rem;color:#aaa;">Regular · 14–16px · Interligne 1.6</div>
+      <div class="typo-label">Hashtags</div>
+      <div class="t-hashtag">#DPCR &nbsp; #Vision2035 &nbsp; #Djibouti<br/>#SécuritéRoutière &nbsp; #Logistique</div>
+      <div class="t-note">Minuscules. Couleur bordeaux sur fond blanc, ou blanc sur fond bordeaux/noir. Taille 12–14 px.</div>
     </div>
     <div class="typo-card">
-      <div class="typo-label">Hashtags & Mentions</div>
-      <div class="type-hashtag">#DPCR &nbsp; #Vision2035 &nbsp; #DESSU<br/>#SmartCorridor &nbsp; #Logistique<br/>#Djibouti &nbsp; #CorridorVisionAI</div>
-      <div style="margin-top:8px;" class="type-caption">Caption : 10–12px · Letterspacing 0.5px · Italique autorisé</div>
+      <div class="typo-label">Légende et annotations</div>
+      <div class="t-caption">Photo : camion en transit sur la RN1, prise de vue depuis le bord de route, lumière de fin de journée.</div>
+      <div class="t-note">Regular ou italique. Couleur gris foncé sur fond blanc. Taille 10–12 px. Espacement lettres 0.5 px.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ 3. LOGO USAGE ═══ -->
-<section style="background:#fff;">
-  <div class="sec-title">03 — Usage du Logotype DPCR</div>
-  <div class="logo-usage-grid">
-    <div class="logo-usage-card">
-      <div class="lu-bg" style="background:#00235A;">
-        <div class="logo-demo" style="border-color:#FFC300;color:#fff;">DPCR<br/><span style="color:#FFC300;">DJIBOUTI</span></div>
-      </div>
-      <div class="lu-info"><strong>Usage Principal</strong><br/>Fond bleu institutional · Bordure jaune · Texte blanc · Position haut gauche</div>
-    </div>
-    <div class="logo-usage-card">
-      <div class="lu-bg" style="background:#fff;border:1px solid #E8ECF2;">
-        <div class="logo-demo" style="border-color:#0052A5;color:#00235A;">DPCR<br/><span style="color:#0052A5;">DJIBOUTI</span></div>
-      </div>
-      <div class="lu-info"><strong>Usage Fond Clair</strong><br/>Fond blanc / gris · Bordure et texte bleu institutionnel</div>
-    </div>
-    <div class="logo-usage-card">
-      <div class="lu-bg" style="background:linear-gradient(135deg,#0A7A43,#0AB368);">
-        <div class="logo-demo" style="border-color:rgba(255,255,255,.6);color:#fff;">DPCR<br/><span style="color:#FFC300;">DJIBOUTI</span></div>
-      </div>
-      <div class="lu-info"><strong>Usage RSE / Vert</strong><br/>Fond vert · Bordure blanche translucide · Publications Pilier 4</div>
-    </div>
-  </div>
-  <div style="margin-top:16px;background:#FFF8E7;border:1px solid #FFD060;border-radius:8px;padding:12px 16px;font-size:.72rem;color:#5A3800;">
-    ⚠️ <strong>Règles absolues :</strong> Le logo est toujours visible, jamais déformé ni incliné. Position systématique : <strong>coin supérieur gauche</strong> des visuels. Taille minimale : 60px de hauteur. Zone d'exclusion : 10px tout autour.
-  </div>
-</section>
-
-<!-- ═══ 4. PILIERS THÉMATIQUES ═══ -->
+<!-- ═══ 03 LOGO ═══ -->
 <section>
-  <div class="sec-title">04 — Les 4 Piliers Thématiques & Leur Identité Visuelle</div>
-  <div class="pillar-grid">
-    <div class="pillar-card">
-      <div class="pillar-header" style="background:linear-gradient(135deg,#0052A5,#1A78C2);">
-        <div class="pillar-num">1</div>
-        <div class="pillar-icon">🧠</div>
-        <div class="pillar-title">Avant-Garde Tech & IA</div>
+  <div class="sec-label">03</div>
+  <div class="sec-title">Usage du Logotype</div>
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="logo-bg" style="background:#FFFFFF; border-bottom:1px solid #E0E0E0;">
+        <div class="logo-display">
+          <div class="logo-icon-row" style="color:#000;">&#9651; &#9655; &#128665;</div>
+          <div class="logo-text-bordeaux">DPCR</div>
+          <div class="logo-subtext">DJIBOUTI PORTS CORRIDOR ROAD</div>
+        </div>
       </div>
-      <div class="pillar-body">
-        <div style="margin-bottom:8px;">
-          <span class="pillar-color-chip" style="background:#0052A5;"></span>
-          <span class="pillar-color-chip" style="background:#00CFFF;"></span>
-          <span class="pillar-color-chip" style="background:#FFC300;"></span>
-          <span style="font-size:.6rem;color:#888;">Palette Pilier 1</span>
+      <div class="logo-note"><strong>Usage principal — fond blanc.</strong> Le logotype est placé en haut à gauche. Taille minimale 60 px de hauteur. Zone d'exclusion : 10 px de chaque côté.</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-bg" style="background:#7D1728;">
+        <div class="logo-display">
+          <div class="logo-icon-row" style="color:rgba(255,255,255,0.8);">&#9651; &#9655; &#128665;</div>
+          <div class="logo-text-blanc">DPCR</div>
+          <div class="logo-subtext-blanc">DJIBOUTI PORTS CORRIDOR ROAD</div>
         </div>
-        <div class="pillar-hashtags">
-          #CorridorVisionAI · #Innovation<br/>
-          #SmartInfrastructure · #IA<br/>
-          #FMS · #DPCS · #RFID
+      </div>
+      <div class="logo-note"><strong>Usage fond bordeaux.</strong> Le lettrage DPCR et les silhouettes passent en blanc. Les éléments de tracé en dégradé sont rendus en blanc uniforme.</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-bg" style="background:#000000;">
+        <div class="logo-display">
+          <div class="logo-icon-row" style="color:rgba(255,255,255,0.8);">&#9651; &#9655; &#128665;</div>
+          <div class="logo-text-blanc">DPCR</div>
+          <div class="logo-subtext-blanc">DJIBOUTI PORTS CORRIDOR ROAD</div>
         </div>
-        <div class="pillar-topics">
-          CorridorVision AI · Pre-gate<br/>
-          FMS ↔ DPCS · Vision par ordinateur<br/>
-          Maintenance prédictive
+      </div>
+      <div class="logo-note"><strong>Usage fond noir.</strong> Même règle que sur fond bordeaux. Le logo est entièrement blanc. Réservé aux publications nocturnes ou posts sécurité.</div>
+    </div>
+  </div>
+  <div class="color-forbidden" style="margin-top:20px; background:#FFF3F3; border-color:#EEC0C0;">
+    Le logo n'est jamais incliné, ni déformé, ni recadré. Il n'est jamais placé sur un fond de couleur autre que blanc, bordeaux ou noir. Il n'est jamais superposé à une zone photographique à faible contraste.
+  </div>
+</section>
+
+<!-- ═══ 04 ANATOMIE VISUELLE ═══ -->
+<section>
+  <div class="sec-label">04</div>
+  <div class="sec-title">Anatomie d'un Visuel — Composition Type</div>
+  <div class="anatomy-card">
+    <div class="anatomy-visual">
+      <div class="anatomy-photo-zone">
+        <div class="anatomy-photo-icon">&#9635;</div>
+        <div class="anatomy-photo-label">Zone Photo<br/>Min. 50 % de la surface<br/>Photo terrain djiboutien obligatoire</div>
+      </div>
+      <div class="anatomy-text-zone">
+        <div>
+          <div class="anatomy-logo-zone">
+            <div class="anatomy-logo-rect"></div>
+            <span style="font-size:0.55rem;color:#AAA;text-transform:uppercase;letter-spacing:1px;">Logo DPCR — haut gauche</span>
+          </div>
+          <div class="anatomy-title">TITRE EN BORDEAUX<br/>UPPERCASE GRAS</div>
+          <div class="anatomy-body">Corps du texte en noir. Phrase courte. Fait établi. Chiffre si disponible. Aucun jargon promotionnel.</div>
+          <div style="font-size:0.65rem; color:#7D1728; margin-top:8px;">#DPCR #Vision2035 #Djibouti</div>
         </div>
+        <div class="anatomy-footer">info@dpcr.dj — DIFTZ Tower, Djibouti — dpcr.dj</div>
       </div>
     </div>
-    <div class="pillar-card">
-      <div class="pillar-header" style="background:linear-gradient(135deg,#004A2E,#0A7A43);">
-        <div class="pillar-num">2</div>
-        <div class="pillar-icon">🌍</div>
-        <div class="pillar-title">Intégration Régionale</div>
-      </div>
-      <div class="pillar-body">
-        <div style="margin-bottom:8px;">
-          <span class="pillar-color-chip" style="background:#0A7A43;"></span>
-          <span class="pillar-color-chip" style="background:#00235A;"></span>
-          <span class="pillar-color-chip" style="background:#FFC300;"></span>
-          <span style="font-size:.6rem;color:#888;">Palette Pilier 2</span>
-        </div>
-        <div class="pillar-hashtags">
-          #DESSU · #RN18 · #Infrastructures<br/>
-          #IntégrationRégionale · #Vision2035<br/>
-          #LogistiqueAfrique · #Djibouti
-        </div>
-        <div class="pillar-topics">
-          DESSU Corridor Authority · RN18<br/>
-          Réseau Dikhil · RN1/RN5/RN9<br/>
-          Continuité service public 24/7
-        </div>
-      </div>
-    </div>
-    <div class="pillar-card">
-      <div class="pillar-header" style="background:linear-gradient(135deg,#8A3500,#F5821F);">
-        <div class="pillar-num">3</div>
-        <div class="pillar-icon">🚛</div>
-        <div class="pillar-title">Sécurité & Prévention</div>
-      </div>
-      <div class="pillar-body">
-        <div style="margin-bottom:8px;">
-          <span class="pillar-color-chip" style="background:#F5821F;"></span>
-          <span class="pillar-color-chip" style="background:#FFC300;"></span>
-          <span class="pillar-color-chip" style="background:#FF4444;"></span>
-          <span style="font-size:.6rem;color:#888;">Palette Pilier 3</span>
-        </div>
-        <div class="pillar-hashtags">
-          #SécuritéRoutière · #Prévention<br/>
-          #Khamsin · #QuizDPCR · #Mobilité<br/>
-          #ESR · #SMUR · #Gendarmerie
-        </div>
-        <div class="pillar-topics">
-          Règle des 2 secondes · Distances<br/>
-          Quiz Khamsin · Angles morts<br/>
-          Stations SMUR · PK13 · PK51
-        </div>
-      </div>
-    </div>
-    <div class="pillar-card">
-      <div class="pillar-header" style="background:linear-gradient(135deg,#3A0060,#7B22B4);">
-        <div class="pillar-num">4</div>
-        <div class="pillar-icon">👷</div>
-        <div class="pillar-title">RSE & Cohésion Nationale</div>
-      </div>
-      <div class="pillar-body">
-        <div style="margin-bottom:8px;">
-          <span class="pillar-color-chip" style="background:#7B22B4;"></span>
-          <span class="pillar-color-chip" style="background:#0A7A43;"></span>
-          <span class="pillar-color-chip" style="background:#FFC300;"></span>
-          <span style="font-size:.6rem;color:#888;">Palette Pilier 4</span>
-        </div>
-        <div class="pillar-hashtags">
-          #SafeDay2026 · #OIT · #GreenPorts<br/>
-          #PreGate · #Kafalah · #SCA<br/>
-          #WorldSafetyDay · #LogistiqueDurable
-        </div>
-        <div class="pillar-topics">
-          Journée OIT 28 avril · Équipes<br/>
-          SCA Randa · Bibliothèque<br/>
-          Programme Kafalah · Bien-être
-        </div>
-      </div>
+    <div class="anatomy-annotations">
+      <div class="annotation"><div class="ann-num">1</div><div class="ann-text">Zone photo : minimum 50 % de la surface. Photo réelle du corridor djiboutien. Aucune image de stock générique.</div></div>
+      <div class="annotation"><div class="ann-num">2</div><div class="ann-text">Zone typographique : fond blanc. Titre en bordeaux uppercase. Corps en noir. Hashtags en bordeaux.</div></div>
+      <div class="annotation"><div class="ann-num">3</div><div class="ann-text">Logo DPCR : haut gauche. Taille min. 60 px. Zone d'exclusion 10 px. Sur fond blanc ou bordeaux uniquement.</div></div>
+      <div class="annotation"><div class="ann-num">4</div><div class="ann-text">Footer : fond bordeaux (#7D1728) ou noir (#000000). Texte blanc. Contacts et numéros d'urgence si post sécurité.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ 5. FORMATS DE PUBLICATION ═══ -->
-<section style="background:#fff;">
-  <div class="sec-title">05 — Formats de Publication & Cadrage</div>
+<!-- ═══ 05 FORMATS ═══ -->
+<section>
+  <div class="sec-label">05</div>
+  <div class="sec-title">Formats de Publication</div>
   <div class="format-grid">
     <div class="format-card">
-      <div class="format-preview" style="height:110px;background:linear-gradient(135deg,#00235A,#0052A5);">
-        <div style="width:88%;height:70%;border:2px dashed rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.7rem;letter-spacing:1px;color:rgba(255,255,255,.6);">16 : 9</div>
-        <div class="format-label">1200 × 628 px</div>
+      <div class="format-frame" style="height:120px; padding:16px;">
+        <div class="format-ratio" style="width:88%; height:80%; border-radius:4px;">16 : 9</div>
       </div>
       <div class="format-info">
-        <div class="format-name">Format Paysage 16:9</div>
-        <div class="format-dims">1200 × 628 px (LinkedIn) · 1600 × 900 px (X)</div>
-        <div class="format-use">Publications LinkedIn B2B · Annonces majeures · Infographies split · X/Twitter</div>
+        <div class="format-name">Format Paysage</div>
+        <div class="format-dims">1200 x 628 px (LinkedIn) — 1600 x 900 px (X)</div>
+        <div class="format-use">Publications LinkedIn B2B. Infographies. Annonces institutionnelles. Posts X à forte portée.</div>
       </div>
     </div>
     <div class="format-card">
-      <div class="format-preview" style="height:110px;background:linear-gradient(135deg,#8A3500,#F5821F);">
-        <div style="width:60%;height:80%;border:2px dashed rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.7rem;letter-spacing:1px;color:rgba(255,255,255,.6);">1 : 1</div>
-        <div class="format-label">1080 × 1080 px</div>
+      <div class="format-frame" style="height:120px; padding:16px;">
+        <div class="format-ratio" style="width:60%; height:80%; border-radius:4px;">1 : 1</div>
       </div>
       <div class="format-info">
-        <div class="format-name">Format Carré 1:1</div>
-        <div class="format-dims">1080 × 1080 px</div>
-        <div class="format-use">Facebook principal · Instagram · LinkedIn secondaire · Quiz interactifs</div>
+        <div class="format-name">Format Carré</div>
+        <div class="format-dims">1080 x 1080 px</div>
+        <div class="format-use">Facebook. Instagram. LinkedIn secondaire. Quiz. Posts sécurité.</div>
       </div>
     </div>
     <div class="format-card">
-      <div class="format-preview" style="height:110px;background:linear-gradient(135deg,#004A2E,#0A7A43);">
-        <div style="display:flex;gap:4px;align-items:center;">
-          <div style="width:52px;height:72px;border:2px dashed rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:rgba(255,255,255,.6);">1</div>
-          <div style="width:52px;height:72px;border:2px dashed rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:rgba(255,255,255,.6);">2</div>
-          <div style="width:52px;height:72px;border:2px dashed rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:rgba(255,255,255,.6);">3</div>
-        </div>
-        <div class="format-label">Carrousel</div>
+      <div class="format-frame" style="height:120px; padding:16px; gap:6px; display:flex; align-items:center; justify-content:center; background:#F0F0F0;">
+        <div class="format-ratio" style="width:28%; height:75%; border-radius:4px; font-size:0.7rem;">1</div>
+        <div class="format-ratio" style="width:28%; height:75%; border-radius:4px; font-size:0.7rem;">2</div>
+        <div class="format-ratio" style="width:28%; height:75%; border-radius:4px; font-size:0.7rem;">3</div>
       </div>
       <div class="format-info">
-        <div class="format-name">Carrousel (3–5 slides)</div>
-        <div class="format-dims">1080 × 1080 px par slide</div>
-        <div class="format-use">RN18 Chantier · Reportages projets · Tutoriels sécurité séquentiels</div>
+        <div class="format-name">Carrousel</div>
+        <div class="format-dims">1080 x 1080 px par slide — 3 slides</div>
+        <div class="format-use">RN18 chantier. Reportages projet. Séquences pédagogiques.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ 6. FOOTER STANDARDISÉ ═══ -->
+<!-- ═══ 06 FOOTER ═══ -->
 <section>
-  <div class="sec-title">06 — Footer de Contact Standardisé (Obligatoire)</div>
-  <p style="font-size:.78rem;color:#555;margin-bottom:16px;line-height:1.6;">Ce bandeau doit figurer sur <strong>TOUS</strong> les visuels informatifs et de sécurité, en bas de chaque visuel, sur fond sombre semi-transparent.</p>
-  <div class="footer-demo">
-    <div class="item"><span>📞</span> (+253) 21 27 05 11</div>
-    <div class="item"><span>✉</span> info@dpcr.dj</div>
-    <div class="item"><span>📍</span> DIFTZ Tower, Djibouti</div>
-    <div class="item"><span>🌐</span> dpcr.dj</div>
+  <div class="sec-label">06</div>
+  <div class="sec-title">Footer Standardisé</div>
+
+  <p style="font-size:0.78rem; color:#444; line-height:1.6; margin-bottom:20px;">Le footer figure sur tous les visuels informatifs et de sécurité, en bas du visuel. L'ancien numéro de hotline interne est supprimé. Deux variantes selon le contexte.</p>
+
+  <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; margin-bottom:8px;">Footer standard — tous les visuels</div>
+  <div class="footer-demo-bordeaux">
+    <div class="f-item">info@dpcr.dj</div>
+    <div class="f-item">dpcr.dj</div>
+    <div class="f-item">DIFTZ Tower, Djibouti</div>
   </div>
+
+  <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; margin:20px 0 8px;">Footer urgence — posts de sécurité routière uniquement (publications 2 et 6)</div>
+  <div class="footer-urgence">
+    <div class="f-item" style="font-weight:700;">Urgence Gendarmerie : 116</div>
+    <div class="f-item" style="font-weight:700;">Urgence SMUR : 119</div>
+    <div class="f-item">info@dpcr.dj</div>
+    <div class="f-item">DIFTZ Tower, Djibouti</div>
+  </div>
+
+  <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#888; margin:20px 0 8px;">Footer alternatif — fond noir (posts nocturnes, OIT)</div>
+  <div class="footer-demo-noir">
+    <div class="f-item">info@dpcr.dj</div>
+    <div class="f-item">dpcr.dj</div>
+    <div class="f-item">DIFTZ Tower, Djibouti</div>
+  </div>
+  <div class="footer-note">Les numéros d'urgence 116 et 119 apparaissent uniquement sur les posts de sécurité routière. Ils ne figurent pas sur les publications institutionnelles, technologiques ou RSE.</div>
 </section>
 
-<!-- ═══ 7. PLANNING PLATEFORMES ═══ -->
-<section style="background:#fff;">
-  <div class="sec-title">07 — Stratégie de Publication par Plateforme · Avril 2026</div>
-  <table class="platform-table">
+<!-- ═══ 07 PLATEFORME ═══ -->
+<section>
+  <div class="sec-label">07</div>
+  <div class="sec-title">Stratégie de Publication par Plateforme</div>
+  <table>
     <thead>
       <tr>
         <th>Plateforme</th>
-        <th>Audience Cible</th>
+        <th>Audience</th>
         <th>Tonalité</th>
-        <th>Jours Optimaux</th>
+        <th>Jours</th>
         <th>Horaire EAT</th>
-        <th>Formats Prioritaires</th>
-        <th>Pubs/Semaine</th>
+        <th>Fréquence</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="tag tag-li">LinkedIn</span></td>
-        <td>Investisseurs · BAD/BM · Opérateurs logistiques · Gouvernements</td>
-        <td>B2B · Institutionnel · Analytique</td>
-        <td>Mardi · Jeudi</td>
+        <td><span class="plat-tag li">LinkedIn</span></td>
+        <td>Investisseurs, bailleurs de fonds, opérateurs logistiques, gouvernements</td>
+        <td>Institutionnel, analytique, orienté données</td>
+        <td>Mardi, Jeudi</td>
         <td>08h30 – 10h00</td>
-        <td>16:9 · Infographie · Carrousel</td>
-        <td><strong>2×</strong></td>
+        <td>2 publications/semaine</td>
       </tr>
       <tr>
-        <td><span class="tag tag-fb">Facebook</span></td>
-        <td>Population djiboutienne · Chauffeurs · Société civile · Diaspora</td>
-        <td>B2C · Pédagogique · Empathique</td>
-        <td>Lun. · Mer. · Ven.</td>
+        <td><span class="plat-tag fb">Facebook</span></td>
+        <td>Population djiboutienne, chauffeurs, société civile, diaspora</td>
+        <td>Direct, pédagogique, factuel</td>
+        <td>Lun., Mer., Ven.</td>
         <td>17h00 – 19h00</td>
-        <td>1:1 carré · Quiz · Sécurité</td>
-        <td><strong>3×</strong></td>
+        <td>3 publications/semaine</td>
       </tr>
       <tr>
-        <td><span class="tag tag-tw">X / Twitter</span></td>
-        <td>Médias · Journalistes économiques · Influenceurs · Relais d'opinion</td>
-        <td>Temps réel · Factuel · Incisif</td>
-        <td>Adapté à l'actu</td>
+        <td><span class="plat-tag tw">X (Twitter)</span></td>
+        <td>Médias, journalistes économiques, influenceurs, relais d'opinion</td>
+        <td>Temps réel, bref, factuel</td>
+        <td>Selon actualité</td>
         <td>Temps réel</td>
-        <td>16:9 · Texte court · Hashtags</td>
-        <td><strong>3–5×</strong></td>
+        <td>3 à 5 publications/semaine</td>
       </tr>
     </tbody>
   </table>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <strong>DPCR SA — Djibouti Ports Corridor Road SA</strong> &nbsp;|&nbsp;
-  📞 (+253) 21 27 05 11 &nbsp;|&nbsp; ✉ info@dpcr.dj &nbsp;|&nbsp; 📍 DIFTZ Tower, Djibouti &nbsp;|&nbsp;
-  Charte Graphique Digitale · Avril 2026 — <strong>Cabinet in'COM</strong>
-</footer>
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+  <strong>Djibouti Ports Corridor Road SA</strong> — Département Communication & Relations Publiques<br/>
+  info@dpcr.dj — DIFTZ Tower, Djibouti — dpcr.dj
+</div>
 
 </body>
 </html>

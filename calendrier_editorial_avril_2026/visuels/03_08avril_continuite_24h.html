@@ -2,341 +2,118 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <title>DPCR | Continuité 24/7 — 08 Avril 2026</title>
+  <title>DPCR | Continuité 24h/7j — 08 Avril 2026</title>
   <style>
+    :root { --brd:#7D1728; --noir:#000; --blanc:#fff; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:#080C14; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
-    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+    body { background:#111; font-family:'Segoe UI',Arial,sans-serif; display:flex; flex-direction:column; align-items:center; gap:32px; padding:32px; }
+    .label { color:#ccc; font-size:.75rem; letter-spacing:2px; text-transform:uppercase; }
+    .ph-icon { font-size:2.5rem; opacity:.2; }
+    .ph-label { font-size:.55rem; color:#999; text-transform:uppercase; letter-spacing:1.5px; text-align:center; max-width:170px; line-height:1.6; }
+    .photo-caption { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.55); color:rgba(255,255,255,.8); font-size:.52rem; padding:5px 10px; letter-spacing:.5px; text-transform:uppercase; }
 
-    /* ── WIDE 16:9 — esthétique nocturne ── */
+    /* ── 16:9 ── */
     .post-wide {
-      width:900px; height:506px;
-      border-radius:10px;
-      box-shadow:0 12px 60px rgba(0,100,255,.25);
-      position:relative; overflow:hidden;
-      background:#05091A;
+      width:900px; height:506px; background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5); display:flex;
     }
+    .pw-photo { width:55%; background:#B8B8B8; position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; }
+    .pw-text { flex:1; padding:30px 26px; display:flex; flex-direction:column; justify-content:space-between; border-left:4px solid var(--brd); }
+    .pw-logo { font-weight:900; font-size:.85rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; margin-bottom:4px; }
+    .pw-sub { font-size:.42rem; color:#999; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; }
+    .pw-date { font-size:.6rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--brd); border:1px solid var(--brd); padding:3px 10px; border-radius:2px; display:inline-block; margin-bottom:10px; width:fit-content; }
+    .pw-axe { font-size:.58rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; margin-bottom:8px; }
+    .pw-title { font-size:1.5rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin-bottom:10px; }
+    .pw-stat-row { display:flex; gap:10px; margin-bottom:10px; }
+    .pw-stat { border:1px solid #DDD; border-left:3px solid var(--brd); padding:8px 12px; }
+    .pw-stat-val { font-size:1.2rem; font-weight:900; color:var(--brd); line-height:1; }
+    .pw-stat-lbl { font-size:.55rem; color:#666; text-transform:uppercase; letter-spacing:.5px; margin-top:2px; }
+    .pw-body { font-size:.73rem; color:var(--noir); line-height:1.5; margin-bottom:8px; }
+    .pw-hashtags { font-size:.62rem; color:var(--brd); }
+    .pw-footer { background:var(--noir); color:var(--blanc); padding:8px 12px; border-radius:3px; margin-top:10px; font-size:.58rem; display:flex; justify-content:space-between; }
 
-    /* Starfield */
-    .stars {
-      position:absolute; inset:0;
-      background-image:
-        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 40% 8%, rgba(255,255,255,.8) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 22%, rgba(255,255,255,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,.4) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 92% 28%, rgba(255,255,255,.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 60% 50%, rgba(255,255,255,.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 78% 60%, rgba(255,255,255,.3) 0%, transparent 100%);
-    }
-
-    /* Night horizon glow */
-    .horizon {
-      position:absolute;
-      bottom:0; left:0; right:0;
-      height:220px;
-      background:linear-gradient(to top,
-        rgba(0,35,90,.9) 0%,
-        rgba(0,35,90,.5) 30%,
-        transparent 100%
-      );
-    }
-
-    /* Road perspective illusion */
-    .road-perspective {
-      position:absolute;
-      bottom:0; left:50%; transform:translateX(-50%);
-      width:0;
-      height:0;
-      border-left:220px solid transparent;
-      border-right:220px solid transparent;
-      border-bottom:220px solid rgba(30,40,60,.6);
-    }
-    .road-center-line {
-      position:absolute;
-      bottom:0; left:50%; transform:translateX(-50%);
-      width:3px;
-      height:200px;
-      background:linear-gradient(to top,
-        rgba(255,195,0,.8) 0%,
-        transparent 100%
-      );
-    }
-
-    /* Light trails — simulating long exposure */
-    .light-trail {
-      position:absolute;
-      height:2px;
-      border-radius:2px;
-      opacity:.7;
-    }
-    .lt1 { bottom:60px; left:30%; width:200px; background:linear-gradient(90deg,transparent,rgba(255,195,0,.8),transparent); transform:rotate(-8deg); }
-    .lt2 { bottom:80px; left:35%; width:160px; background:linear-gradient(90deg,transparent,rgba(255,220,100,.6),transparent); transform:rotate(-9deg); }
-    .lt3 { bottom:50px; right:28%; width:220px; background:linear-gradient(90deg,transparent,rgba(255,150,50,.7),transparent); transform:rotate(8deg); }
-    .lt4 { bottom:70px; right:32%; width:140px; background:linear-gradient(90deg,transparent,rgba(255,100,30,.5),transparent); transform:rotate(7deg); }
-
-    /* FMS portal dots */
-    .fms-portique {
-      position:absolute;
-      bottom:30px;
-    }
-    .fms-1 { left:22%; }
-    .fms-2 { right:20%; }
-    .fms-arch {
-      width:40px; height:60px;
-      border:2px solid rgba(0,207,255,.5);
-      border-bottom:none;
-      border-radius:6px 6px 0 0;
-      position:relative;
-    }
-    .fms-arch::after {
-      content:'FMS';
-      position:absolute;
-      top:-18px; left:50%; transform:translateX(-50%);
-      font-size:.45rem; color:rgba(0,207,255,.8); font-weight:700;
-      letter-spacing:1px; white-space:nowrap;
-    }
-    .fms-beam {
-      position:absolute;
-      top:10px; left:50%; transform:translateX(-50%);
-      width:2px; height:50px;
-      background:linear-gradient(to bottom, rgba(0,207,255,.6), transparent);
-    }
-
-    /* Content overlay gradient */
-    .content-overlay {
-      position:absolute; inset:0;
-      background:linear-gradient(90deg,
-        rgba(0,10,35,.75) 0%,
-        rgba(0,10,35,.2) 50%,
-        rgba(0,10,35,.7) 100%
-      );
-    }
-
-    /* Main content */
-    .content {
-      position:relative; z-index:5;
-      padding:32px 40px;
-      height:100%;
-      display:flex; flex-direction:column;
-    }
-
-    .top-row {
-      display:flex; justify-content:space-between; align-items:flex-start;
-      margin-bottom:auto;
-    }
-    .logo-box {
-      border:2px solid rgba(255,195,0,.6);
-      padding:5px 11px;
-      font-weight:900; font-size:.62rem;
-      letter-spacing:2px; text-transform:uppercase;
-      color:#fff; line-height:1.4;
-    }
-    .logo-box span { color:#FFC300; }
-
-    .date-tag {
-      background:rgba(0,35,90,.6);
-      border:1px solid rgba(0,207,255,.3);
-      color:#00CFFF;
-      font-size:.6rem; font-weight:700;
-      letter-spacing:1.5px; text-transform:uppercase;
-      padding:4px 12px; border-radius:20px;
-    }
-
-    /* Clock visual */
-    .clock-zone {
-      position:absolute;
-      right:40px; top:50%;
-      transform:translateY(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-    }
-    .clock-ring {
-      width:100px; height:100px;
-      border-radius:50%;
-      border:3px solid rgba(0,207,255,.4);
-      background:rgba(0,20,60,.6);
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column;
-      position:relative;
-    }
-    .clock-num { font-size:1.3rem; font-weight:900; color:#00CFFF; line-height:1; }
-    .clock-slash { font-size:.6rem; color:rgba(255,255,255,.5); }
-    .clock-label { font-size:.55rem; color:rgba(255,255,255,.6); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
-    .km-counter { font-size:.8rem; font-weight:700; color:#FFC300; margin-top:4px; text-align:center; line-height:1.3; }
-    .km-counter span { font-size:.6rem; color:rgba(255,255,255,.6); display:block; }
-
-    .main-block {
-      position:absolute;
-      left:40px; bottom:55px;
-      max-width:480px;
-    }
-
-    .pilier-tag {
-      display:inline-block;
-      background:rgba(0,207,255,.1);
-      border-left:3px solid #00CFFF;
-      color:#00CFFF;
-      font-size:.58rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
-      padding:3px 10px; margin-bottom:14px; width:fit-content;
-    }
-
-    .main-title {
-      font-size:2rem; font-weight:900;
-      color:#fff; text-transform:uppercase;
-      line-height:1.15; margin-bottom:10px;
-    }
-    .main-title span { color:#FFC300; }
-    .main-title .blue { color:#00CFFF; }
-
-    .desc-text {
-      font-size:.78rem; color:rgba(255,255,255,.75);
-      line-height:1.6; margin-bottom:10px;
-      border-left:3px solid rgba(0,207,255,.3);
-      padding-left:12px;
-    }
-    .hashtags { font-size:.68rem; color:rgba(255,255,255,.35); }
-
-    /* Footer */
-    .footer-band {
-      position:absolute;
-      bottom:0; left:0; right:0; height:38px;
-      background:rgba(0,0,0,.5);
-      border-top:1px solid rgba(0,207,255,.15);
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 40px; font-size:.62rem; color:rgba(255,255,255,.5);
-    }
-
-    /* ── FACEBOOK SQUARE ── */
+    /* ── 1:1 ── */
     .post-sq {
-      width:600px; height:600px;
-      border-radius:10px;
-      box-shadow:0 12px 50px rgba(0,0,0,.7);
-      background:#05091A;
-      position:relative; overflow:hidden;
+      width:600px; height:600px; background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5); display:flex; flex-direction:column;
     }
-    .fb-content {
-      position:relative; z-index:5;
-      padding:30px; height:100%;
-      display:flex; flex-direction:column;
-    }
-    .fb-title {
-      font-size:1.8rem; font-weight:900; color:#fff;
-      text-transform:uppercase; line-height:1.2; margin:16px 0 8px;
-    }
-    .fb-title span { color:#FFC300; }
-    .fb-title .blue { color:#00CFFF; }
-    .stat-row {
-      display:flex; gap:10px; margin:12px 0;
-    }
-    .stat-box {
-      flex:1; background:rgba(0,207,255,.08);
-      border:1px solid rgba(0,207,255,.25);
-      border-radius:8px; padding:10px;
-      text-align:center;
-    }
-    .stat-val { font-size:1.4rem; font-weight:900; color:#00CFFF; }
-    .stat-lbl { font-size:.6rem; color:rgba(255,255,255,.6); letter-spacing:.5px; text-transform:uppercase; }
+    .sq-photo { flex:1; background:#B8B8B8; position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; }
+    .sq-text { padding:18px 20px; border-top:4px solid var(--brd); }
+    .sq-logo { font-weight:900; font-size:.72rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; margin-bottom:6px; }
+    .sq-title { font-size:1.2rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin-bottom:6px; }
+    .sq-stats { display:flex; gap:8px; margin-bottom:8px; }
+    .sq-stat { border:1px solid #DDD; border-left:3px solid var(--brd); padding:6px 10px; }
+    .sq-stat-v { font-size:1rem; font-weight:900; color:var(--brd); }
+    .sq-stat-l { font-size:.52rem; color:#666; text-transform:uppercase; }
+    .sq-body { font-size:.7rem; color:var(--noir); line-height:1.5; margin-bottom:6px; }
+    .sq-hash { font-size:.6rem; color:var(--brd); margin-bottom:8px; }
+    .sq-footer { background:var(--noir); color:var(--blanc); padding:7px 10px; font-size:.55rem; display:flex; justify-content:space-between; margin:-18px -20px -18px; margin-top:8px; }
   </style>
 </head>
 <body>
 
-<div class="label">📌 Post LinkedIn/Facebook — 16:9 — Mercredi 8 Avril 2026</div>
+<div class="label">Publication 3 — LinkedIn 16:9 — Mercredi 8 Avril 2026</div>
 
-<!-- ═══ WIDE 16:9 ═══ -->
 <div class="post-wide">
-  <div class="stars"></div>
-  <div class="horizon"></div>
-  <div class="road-perspective"></div>
-  <div class="road-center-line"></div>
-  <!-- Light trails -->
-  <div class="light-trail lt1"></div>
-  <div class="light-trail lt2"></div>
-  <div class="light-trail lt3"></div>
-  <div class="light-trail lt4"></div>
-  <!-- FMS portiques -->
-  <div class="fms-portique fms-1"><div class="fms-arch"><div class="fms-beam"></div></div></div>
-  <div class="fms-portique fms-2"><div class="fms-arch"><div class="fms-beam"></div></div></div>
-  <div class="content-overlay"></div>
-
-  <div class="content">
-    <div class="top-row">
-      <div class="logo-box">DPCR<br/><span>DJIBOUTI</span></div>
-      <span class="date-tag">📅 8 Avril 2026 — J-2 Élections</span>
-    </div>
-
-    <!-- Clock visual -->
-    <div class="clock-zone">
-      <div class="clock-ring">
-        <span class="clock-num">24</span>
-        <span class="clock-slash">/ 7</span>
-      </div>
-      <span class="clock-label">En service</span>
-      <div class="km-counter">+640 km<span>de réseau sous surveillance</span></div>
-    </div>
-
-    <!-- Main text block -->
-    <div class="main-block">
-      <span class="pilier-tag">Pilier 2 — Excellence Opérationnelle</span>
-      <div class="main-title">
-        ENGAGÉS POUR<br/>
-        LA <span>CONTINUITÉ</span>.<br/>
-        <span class="blue">24/7</span>
-      </div>
-      <div class="desc-text">
-        Les corridors de la République ne dorment jamais. En coordination avec les Escadrons de Sécurité Routière, nos ingénieurs et patrouilleurs veillent sur chaque kilomètre. Rien n'interrompt l'approvisionnement régional.
-      </div>
-      <div class="hashtags">#Continuité &nbsp;#ServicePublic &nbsp;#DPCR &nbsp;#Excellence &nbsp;#Djibouti</div>
-    </div>
+  <div class="pw-photo">
+    <div class="ph-icon">&#128661;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Patrouilleur DPCR ou vehicule<br/>d'intervention la nuit, phares allumes</div>
+    <div class="photo-caption">Patrouille nocturne — Réseau DPCR SA</div>
   </div>
-
-  <div class="footer-band">
-    <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj</span>
-    <span>📍 DIFTZ Tower, Djibouti &nbsp;|&nbsp; dpcr.dj</span>
+  <div class="pw-text">
+    <div>
+      <div class="pw-logo">DPCR</div>
+      <div class="pw-sub">Djibouti Ports Corridor Road</div>
+      <span class="pw-date">8 Avril 2026 — J-2 Election</span>
+      <div class="pw-axe">Continuite Operationnelle — Service Public</div>
+      <div class="pw-title">LES CORRIDORS<br/>SONT OPERATIONNELS.<br/>24H/7J.</div>
+      <div class="pw-stat-row">
+        <div class="pw-stat">
+          <div class="pw-stat-val">24h/7j</div>
+          <div class="pw-stat-lbl">En service</div>
+        </div>
+        <div class="pw-stat">
+          <div class="pw-stat-val">+642 km</div>
+          <div class="pw-stat-lbl">Réseau sous surveillance</div>
+        </div>
+        <div class="pw-stat">
+          <div class="pw-stat-val">ESR</div>
+          <div class="pw-stat-lbl">Coordination gendarmerie</div>
+        </div>
+      </div>
+      <div class="pw-body">Les équipes DPCR SA assurent la surveillance et l'entretien du réseau routier 24 heures sur 24, 7 jours sur 7. Les patrouilles opèrent en coordination avec les Escadrons de Sécurité Routière. La continuité de l'approvisionnement régional est maintenue en toute circonstance.</div>
+      <div class="pw-hashtags">#ServicePublic #DPCR #Continuité #Djibouti</div>
+    </div>
+    <div class="pw-footer">
+      <span>info@dpcr.dj</span>
+      <span>dpcr.dj</span>
+      <span>DIFTZ Tower, Djibouti</span>
+    </div>
   </div>
 </div>
 
-<!-- ═══ FACEBOOK SQUARE ═══ -->
-<div class="label">📌 Post Facebook — 1:1 — Mercredi 8 Avril 2026</div>
-<div class="post-sq">
-  <div class="stars"></div>
-  <div class="horizon" style="height:300px;"></div>
-  <div class="road-perspective"></div>
-  <div class="light-trail lt1" style="bottom:120px;"></div>
-  <div class="light-trail lt3" style="bottom:100px;"></div>
-  <div class="content-overlay"></div>
+<div class="label">Publication 3 — Facebook 1:1 — Mercredi 8 Avril 2026</div>
 
-  <div class="fb-content">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <div class="logo-box" style="border:2px solid rgba(255,195,0,.6);padding:4px 10px;font-weight:900;font-size:.6rem;letter-spacing:2px;color:#fff;line-height:1.4;">DPCR<br/><span style="color:#FFC300;">DJIBOUTI</span></div>
-      <span style="background:rgba(0,207,255,.1);border:1px solid rgba(0,207,255,.3);color:#00CFFF;font-size:.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">⚙️ Service 24/7</span>
+<div class="post-sq">
+  <div class="sq-photo">
+    <div class="ph-icon">&#128661;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Patrouilleur ou vehicule<br/>d'intervention, nuit</div>
+    <div class="photo-caption">Corridor DPCR SA — 24h/7j</div>
+  </div>
+  <div class="sq-text">
+    <div class="sq-logo">DPCR</div>
+    <div class="sq-title">24H/7J —<br/>AUCUNE INTERRUPTION</div>
+    <div class="sq-stats">
+      <div class="sq-stat"><div class="sq-stat-v">+642 km</div><div class="sq-stat-l">Réseau actif</div></div>
+      <div class="sq-stat"><div class="sq-stat-v">ESR</div><div class="sq-stat-l">Coordination Gendarmerie</div></div>
     </div>
-    <div style="text-align:center;font-size:3rem;margin:12px 0 0;">⚙️</div>
-    <div class="fb-title">
-      LES CORRIDORS<br/>DE LA <span>RÉPUBLIQUE</span><br/>NE DORMENT<br/><span class="blue">JAMAIS</span>
-    </div>
-    <div class="stat-row">
-      <div class="stat-box">
-        <div class="stat-val">24/7</div>
-        <div class="stat-lbl">En service</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val">+640</div>
-        <div class="stat-lbl">km de réseau</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val">ESR</div>
-        <div class="stat-lbl">Coord. Gendarmerie</div>
-      </div>
-    </div>
-    <div style="font-size:.72rem;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:auto;">
-      Rien n'interrompt la continuité de l'approvisionnement régional. En toute circonstance.
-    </div>
-    <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-bottom:10px;">#Continuité #ServicePublic #DPCR #Excellence #Djibouti</div>
-    <div style="border-top:1px solid rgba(255,255,255,.15);padding-top:10px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.45);">
-      <span>📞 (+253) 21 27 05 11</span><span>info@dpcr.dj</span>
+    <div class="sq-body">La continuité de l'approvisionnement régional est maintenue en toute circonstance. Les patrouilles sont actives sur l'ensemble du réseau.</div>
+    <div class="sq-hash">#ServicePublic #DPCR #Continuité #Djibouti</div>
+    <div class="sq-footer">
+      <span>info@dpcr.dj</span>
+      <span>dpcr.dj — DIFTZ Tower, Djibouti</span>
     </div>
   </div>
 </div>

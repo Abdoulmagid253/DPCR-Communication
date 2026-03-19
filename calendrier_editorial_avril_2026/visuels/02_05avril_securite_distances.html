@@ -2,312 +2,139 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <title>DPCR | Sécurité Distances — 05 Avril 2026</title>
+  <title>DPCR | Distances de Securite — 05 Avril 2026</title>
   <style>
+    :root { --brd:#7D1728; --noir:#000; --blanc:#fff; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:#111; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
-    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+    body { background:#111; font-family:'Segoe UI',Arial,sans-serif; display:flex; flex-direction:column; align-items:center; gap:32px; padding:32px; }
+    .label { color:#ccc; font-size:.75rem; letter-spacing:2px; text-transform:uppercase; }
+    .ph-icon { font-size:2.5rem; opacity:.2; }
+    .ph-label { font-size:.55rem; color:#999; text-transform:uppercase; letter-spacing:1.5px; text-align:center; max-width:160px; line-height:1.6; }
 
-    /* ── FACEBOOK / X SQUARE 1:1 ─────────────── */
+    /* ── 1:1 FACEBOOK ── */
     .post-sq {
       width:600px; height:600px;
-      position:relative; overflow:hidden;
-      border-radius:10px;
-      box-shadow:0 12px 50px rgba(0,0,0,.6);
-      background:#1A0800;
-    }
-
-    /* Road background */
-    .road-bg {
-      position:absolute; inset:0;
-      background:
-        linear-gradient(to bottom, #1A0800 0%, #2A1000 30%, #3A1800 60%, #1A0800 100%);
-    }
-    /* Asphalt road strip */
-    .road-strip {
-      position:absolute;
-      left:50%; top:0; bottom:0;
-      width:160px; transform:translateX(-50%);
-      background:linear-gradient(to bottom, #222 0%, #333 100%);
-    }
-    .road-strip::before {
-      content:'';
-      position:absolute;
-      left:50%; top:0; bottom:0;
-      width:4px; transform:translateX(-50%);
-      background:repeating-linear-gradient(
-        to bottom,
-        #FFC300 0px, #FFC300 20px,
-        transparent 20px, transparent 36px
-      );
-    }
-    /* Orange danger zone */
-    .danger-zone {
-      position:absolute;
-      bottom:0; left:50%;
-      width:160px; transform:translateX(-50%);
-      background:repeating-linear-gradient(
-        45deg,
-        rgba(245,130,31,.7) 0px, rgba(245,130,31,.7) 10px,
-        rgba(180,60,0,.7) 10px, rgba(180,60,0,.7) 20px
-      );
-    }
-
-    /* Content overlay */
-    .overlay {
-      position:absolute; inset:0;
-      background:linear-gradient(135deg, rgba(160,50,0,.85) 0%, rgba(80,20,0,.7) 50%, rgba(0,10,30,.85) 100%);
-    }
-
-    .content {
-      position:relative; z-index:2;
-      padding:30px;
-      height:100%;
+      background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5);
       display:flex; flex-direction:column;
     }
-
-    .logo-row {
-      display:flex; justify-content:space-between; align-items:flex-start;
-    }
-    .logo-box {
-      border:2px solid #FFC300;
-      padding:4px 10px;
-      font-weight:900; font-size:.62rem;
-      letter-spacing:2px; text-transform:uppercase;
-      color:#fff; line-height:1.4;
-    }
-    .logo-box span { color:#FFC300; }
-    .pilier-tag {
-      background:rgba(245,130,31,.2);
-      border:1px solid rgba(245,130,31,.5);
-      color:#F5821F;
-      font-size:.58rem; font-weight:700; letter-spacing:1px;
-      text-transform:uppercase; padding:4px 10px; border-radius:20px;
-    }
-
-    .icon-row {
-      text-align:center; font-size:3rem; margin:16px 0 8px;
-    }
-
-    .main-title {
-      font-size:1.85rem; font-weight:900;
-      color:#fff; text-transform:uppercase;
-      text-align:center; line-height:1.15;
-      margin-bottom:6px;
-    }
-    .main-title .highlight { color:#FFC300; }
-    .main-title .danger { color:#F5821F; }
+    .photo-zone { flex:1; background:#C0C0C0; position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; }
+    .photo-caption { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.55); color:rgba(255,255,255,.8); font-size:.52rem; padding:5px 10px; letter-spacing:.5px; text-transform:uppercase; }
+    .text-zone { padding:18px 22px; border-top:4px solid var(--brd); }
+    .logo-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+    .logo-box { font-weight:900; font-size:.72rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; }
+    .axe-tag { font-size:.58rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#888; }
+    .main-title { font-size:1.3rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin:6px 0 8px; }
+    .rule-line { font-size:.88rem; font-weight:700; color:var(--noir); margin-bottom:6px; }
 
     /* Distance bar */
-    .distance-bar {
-      display:flex; align-items:center; gap:0;
-      margin:16px 0;
-      background:rgba(0,0,0,.4);
-      border-radius:8px; overflow:hidden;
-      border:1px solid rgba(245,130,31,.3);
-    }
-    .dist-zone {
-      flex:1; padding:10px 12px;
-      text-align:center;
-    }
-    .dist-label { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,.6); }
-    .dist-value { font-size:1.4rem; font-weight:900; }
-    .dist-green { color:#00FF88; }
-    .dist-red { color:#FF4444; }
-    .dist-sep { width:1px; background:rgba(255,255,255,.2); align-self:stretch; }
+    .dist-bar { display:flex; gap:0; border:1px solid #DDD; border-radius:4px; overflow:hidden; margin:8px 0; }
+    .dist-item { flex:1; padding:8px 10px; text-align:center; border-right:1px solid #DDD; }
+    .dist-item:last-child { border-right:none; }
+    .dist-val { font-size:1.1rem; font-weight:900; color:var(--brd); }
+    .dist-lbl { font-size:.55rem; color:#666; text-transform:uppercase; letter-spacing:.5px; }
 
-    .rule-box {
-      background:rgba(245,130,31,.15);
-      border:1px solid rgba(245,130,31,.4);
-      border-radius:8px;
-      padding:12px 16px;
-      font-size:.78rem; color:#fff; line-height:1.5;
-      text-align:center; margin-bottom:auto;
-    }
-    .rule-box strong { color:#FFC300; font-size:.9rem; }
+    .body-text { font-size:.72rem; color:var(--noir); line-height:1.5; margin-bottom:6px; }
+    .hashtags { font-size:.6rem; color:var(--brd); margin-bottom:8px; }
+    .footer-urgence { background:var(--brd); color:var(--blanc); padding:8px 10px; font-size:.56rem; display:flex; justify-content:space-between; margin:-18px -22px -18px; margin-top:8px; }
 
-    .sub-message {
-      font-size:.78rem; color:rgba(255,255,255,.75);
-      text-align:center; margin:10px 0 8px; line-height:1.4;
-    }
-
-    .hashtags {
-      font-size:.68rem; color:rgba(255,255,255,.45);
-      text-align:center; margin-bottom:10px;
-    }
-
-    .footer-contact {
-      border-top:1px solid rgba(255,255,255,.15);
-      padding-top:10px;
-      display:flex; justify-content:space-between;
-      font-size:.6rem; color:rgba(255,255,255,.5);
-    }
-
-    /* ── WIDE 16:9 ──────────────────────── */
+    /* ── 16:9 ── */
     .post-wide {
       width:900px; height:506px;
-      border-radius:10px;
-      box-shadow:0 12px 50px rgba(0,0,0,.6);
-      background:#1A0800;
-      position:relative; overflow:hidden;
+      background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5);
       display:flex;
     }
-
-    .pw-left {
-      width:45%; background:linear-gradient(135deg, #3D1200 0%, #B34000 60%, #F5821F 100%);
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column; gap:14px; padding:40px;
-      position:relative;
-    }
-    .pw-left::after {
-      content:'';
-      position:absolute; right:-1px; top:0; bottom:0;
-      width:60px;
-      background:inherit;
-      clip-path:polygon(100% 0, 0 50%, 100% 100%);
-    }
-    .speed-circle {
-      width:130px; height:130px;
-      border-radius:50%;
-      border:4px solid rgba(255,255,255,.3);
-      background:rgba(0,0,0,.3);
-      display:flex; align-items:center; justify-content:center;
-      flex-direction:column;
-    }
-    .speed-num { font-size:2.5rem; font-weight:900; color:#fff; line-height:1; }
-    .speed-unit { font-size:.7rem; color:rgba(255,255,255,.7); letter-spacing:2px; text-transform:uppercase; }
-
-    .pw-right {
-      flex:1; display:flex; flex-direction:column; justify-content:center;
-      padding:36px 40px;
-    }
-    .pw-main-title {
-      font-size:2rem; font-weight:900; color:#fff;
-      text-transform:uppercase; line-height:1.15; margin-bottom:12px;
-    }
-    .pw-main-title span { color:#FFC300; }
-
-    /* Danger strip graphic */
-    .danger-strip {
-      height:24px; border-radius:4px; overflow:hidden;
-      margin:14px 0;
-      background:repeating-linear-gradient(
-        -45deg,
-        #F5821F 0px, #F5821F 12px,
-        #B34000 12px, #B34000 24px
-      );
-      display:flex; align-items:center;
-      padding:0 12px;
-      position:relative;
-    }
-    .danger-strip-text {
-      font-size:.65rem; font-weight:900; color:#fff;
-      letter-spacing:2px; text-transform:uppercase;
-      text-shadow:0 1px 4px rgba(0,0,0,.8);
-    }
-    .danger-strip-val {
-      position:absolute; right:12px;
-      font-size:.65rem; font-weight:900; color:#fff;
-      text-shadow:0 1px 4px rgba(0,0,0,.8);
-    }
+    .pw-photo { width:55%; background:#C0C0C0; position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; }
+    .pw-text { flex:1; padding:32px 28px; display:flex; flex-direction:column; justify-content:space-between; border-left:4px solid var(--brd); }
+    .pw-logo { font-weight:900; font-size:.85rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; margin-bottom:16px; }
+    .pw-date { font-size:.6rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--brd); border:1px solid var(--brd); padding:3px 10px; border-radius:2px; display:inline-block; margin-bottom:12px; width:fit-content; }
+    .pw-title { font-size:1.5rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin-bottom:10px; }
+    .pw-body { font-size:.76rem; color:var(--noir); line-height:1.6; margin-bottom:10px; }
+    .pw-dist { display:flex; gap:12px; margin:10px 0; }
+    .pw-dist-box { border:1px solid var(--brd); padding:8px 14px; text-align:center; border-radius:3px; }
+    .pw-dist-val { font-size:1.4rem; font-weight:900; color:var(--brd); }
+    .pw-dist-lbl { font-size:.55rem; color:#666; text-transform:uppercase; letter-spacing:.5px; }
+    .pw-hashtags { font-size:.62rem; color:var(--brd); }
+    .pw-footer { background:var(--brd); color:var(--blanc); padding:8px 12px; border-radius:3px; margin-top:10px; font-size:.56rem; display:flex; justify-content:space-between; }
+    .pw-footer-urgence { background:var(--brd); color:var(--blanc); padding:8px 12px; border-radius:3px; margin-top:10px; font-size:.58rem; display:flex; justify-content:space-between; font-weight:600; }
   </style>
 </head>
 <body>
 
-<div class="label">📌 Post Facebook/X — 1:1 — Dimanche 5 Avril 2026</div>
+<div class="label">Publication 2 — Facebook/X 1:1 — Dimanche 5 Avril 2026</div>
 
-<!-- ═══ SQUARE POST ═══ -->
+<!-- 1:1 -->
 <div class="post-sq">
-  <div class="road-bg"></div>
-  <div class="overlay"></div>
-
-  <div class="content">
+  <div class="photo-zone">
+    <div class="ph-icon">&#128665;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Camion fort tonnage<br/>sur la RN1</div>
+    <div class="photo-caption">RN1 — Corridor Djibouti / Ethiopie</div>
+  </div>
+  <div class="text-zone">
     <div class="logo-row">
-      <div class="logo-box">DPCR<br/><span>DJIBOUTI</span></div>
-      <span class="pilier-tag">🚛 Sécurité Routière</span>
+      <div class="logo-box">DPCR</div>
+      <span class="axe-tag">Securite Routiere — 5 Avril 2026</span>
     </div>
-
-    <div class="icon-row">🚛</div>
-
-    <div class="main-title">
-      LA RÈGLE DES<br/>
-      <span class="highlight">2 SECONDES</span><br/>
-      <span class="danger">SAUVE DES VIES</span>
-    </div>
-
-    <!-- Distance bar -->
-    <div class="distance-bar">
-      <div class="dist-zone">
-        <div class="dist-label">À 80 km/h</div>
-        <div class="dist-value dist-red">50 m</div>
-        <div class="dist-label">Distance min.</div>
+    <div class="main-title">LA REGLE DES<br/>2 SECONDES</div>
+    <div class="dist-bar">
+      <div class="dist-item">
+        <div class="dist-val">80 km/h</div>
+        <div class="dist-lbl">Vitesse</div>
       </div>
-      <div class="dist-sep"></div>
-      <div class="dist-zone">
-        <div class="dist-label">Poids lourd</div>
-        <div class="dist-value" style="color:#F5821F;">+3.5 T</div>
-        <div class="dist-label">Frein long</div>
+      <div class="dist-item">
+        <div class="dist-val">50 m</div>
+        <div class="dist-lbl">Distance min.</div>
       </div>
-      <div class="dist-sep"></div>
-      <div class="dist-zone">
-        <div class="dist-label">Règle</div>
-        <div class="dist-value dist-green">2 sec</div>
-        <div class="dist-label">Intervalle</div>
+      <div class="dist-item">
+        <div class="dist-val">2 sec</div>
+        <div class="dist-lbl">Intervalle</div>
       </div>
     </div>
-
-    <div class="rule-box">
-      Après la reprise du trafic post-Aïd, <strong>gardez vos distances</strong>.<br/>
-      L'urgence ne justifie jamais de mettre une vie en danger.
-    </div>
-
-    <div class="sub-message">
-      🚨 Ne laissez pas l'urgence dicter votre conduite.<br/>
-      <strong style="color:#F5821F;">Respectez les 50 mètres de sécurité.</strong>
-    </div>
-
-    <div class="hashtags">#SécuritéRoutière &nbsp;#DPCR &nbsp;#Prévention &nbsp;#Mobilité &nbsp;#Djibouti</div>
-
-    <div class="footer-contact">
-      <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj</span>
-      <span>📍 DIFTZ Tower, Djibouti</span>
+    <div class="body-text">Pour les poids lourds de plus de 3,5 tonnes, 50 metres est la seule marge entre un freinage controle et un accident. Respectez la regle des deux secondes.</div>
+    <div class="rule-line">Gardez 50 metres. La vigilance est une obligation professionnelle.</div>
+    <div class="hashtags">#SécuritéRoutière #DPCR #Prévention #Djibouti</div>
+    <div class="footer-urgence">
+      <span>Urgence Gendarmerie : 116</span>
+      <span>Urgence SMUR : 119</span>
+      <span>info@dpcr.dj</span>
     </div>
   </div>
 </div>
 
-<!-- ═══ WIDE 16:9 POST ═══ -->
-<div class="label">📌 Variante 16:9 — LinkedIn/X</div>
+<div class="label">Publication 2 — Variante 16:9 — Dimanche 5 Avril 2026</div>
+
+<!-- 16:9 -->
 <div class="post-wide">
-  <div class="pw-left">
-    <div style="border:2px solid rgba(255,255,255,.4);padding:4px 10px;font-weight:900;font-size:.58rem;letter-spacing:2px;color:#fff;line-height:1.4;">DPCR <span style="color:#FFC300;">DJIBOUTI</span></div>
-    <div class="speed-circle">
-      <span class="speed-num">80</span>
-      <span class="speed-unit">km/h</span>
-    </div>
-    <div style="text-align:center;color:#fff;">
-      <div style="font-size:2.2rem;font-weight:900;color:#FFC300;line-height:1;">50 m</div>
-      <div style="font-size:.65rem;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;">Distance minimale<br/>de sécurité</div>
-    </div>
-    <div style="font-size:.62rem;color:rgba(255,255,255,.6);text-align:center;letter-spacing:1px;text-transform:uppercase;">⚠ Zone de danger<br/>hatching</div>
+  <div class="pw-photo">
+    <div class="ph-icon">&#128665;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Camion fort tonnage sur la RN1<br/>prise de vue laterale ou frontale</div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.55);color:rgba(255,255,255,.8);font-size:.5rem;padding:5px 10px;letter-spacing:.5px;text-transform:uppercase;">RN1 — Reprise du trafic post-Aid</div>
   </div>
-  <div class="pw-right" style="background:linear-gradient(135deg,#1A0800 0%,#2A1200 100%);">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
-      <span style="background:rgba(245,130,31,.2);border:1px solid rgba(245,130,31,.5);color:#F5821F;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">📅 5 Avril 2026 — Post-Aïd</span>
+  <div class="pw-text">
+    <div>
+      <div class="pw-logo">DPCR</div>
+      <span class="pw-date">5 Avril 2026 — Post-Aid</span>
+      <div class="pw-title">REGLE DES<br/>2 SECONDES :<br/>50 METRES MINIMUM</div>
+      <div class="pw-dist">
+        <div class="pw-dist-box">
+          <div class="pw-dist-val">50 m</div>
+          <div class="pw-dist-lbl">Distance a 80 km/h</div>
+        </div>
+        <div class="pw-dist-box">
+          <div class="pw-dist-val">+3,5 T</div>
+          <div class="pw-dist-lbl">Poids lourd</div>
+        </div>
+      </div>
+      <div class="pw-body">Reprise du trafic commercial. La cohabitation entre vehicules legers et poids lourds impose le respect strict des distances de freinage. La vigilance est une obligation professionnelle.</div>
+      <div class="pw-hashtags">#SécuritéRoutière #DPCR #Prévention #Djibouti</div>
     </div>
-    <div class="pw-main-title">
-      LA RÈGLE DES<br/><span>2 SECONDES</span><br/>SAUVE DES VIES
-    </div>
-    <div class="danger-strip">
-      <span class="danger-strip-text">⚠ ZONE DE DANGER — DISTANCE INSUFFISANTE</span>
-      <span class="danger-strip-val">50 MÈTRES</span>
-    </div>
-    <div style="font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:12px;">
-      🚛 Reprise du trafic commercial : la cohabitation entre véhicules légers et poids lourds de plusieurs dizaines de tonnes impose un respect strict des distances. <strong style="color:#FFC300;">Gardez vos distances. Restez vigilants.</strong>
-    </div>
-    <div style="font-size:.68rem;color:rgba(255,255,255,.45);margin-bottom:14px;">#SécuritéRoutière #DPCR #Prévention #Mobilité #Djibouti</div>
-    <div style="border-top:1px solid rgba(255,255,255,.15);padding-top:10px;display:flex;justify-content:space-between;font-size:.62rem;color:rgba(255,255,255,.5);">
-      <span>📞 (+253) 21 27 05 11 &nbsp;|&nbsp; info@dpcr.dj</span>
-      <span>📍 DIFTZ Tower, Djibouti</span>
+    <div class="pw-footer-urgence">
+      <span>Urgence Gendarmerie : 116</span>
+      <span>Urgence SMUR : 119</span>
+      <span>info@dpcr.dj — DIFTZ Tower</span>
     </div>
   </div>
 </div>
