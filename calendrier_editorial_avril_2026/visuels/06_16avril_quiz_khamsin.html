@@ -4,276 +4,153 @@
   <meta charset="UTF-8"/>
   <title>DPCR | Quiz Khamsin — 16 Avril 2026</title>
   <style>
+    :root { --brd:#7D1728; --noir:#000; --blanc:#fff; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:#1A0A00; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif; gap:30px; padding:30px; }
-    .label { color:#ccc; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; }
+    body { background:#111; font-family:'Segoe UI',Arial,sans-serif; display:flex; flex-direction:column; align-items:center; gap:32px; padding:32px; }
+    .label { color:#ccc; font-size:.75rem; letter-spacing:2px; text-transform:uppercase; }
+    .ph-icon { font-size:2.5rem; opacity:.2; }
+    .ph-label { font-size:.55rem; color:#999; text-transform:uppercase; letter-spacing:1.5px; text-align:center; max-width:160px; line-height:1.6; }
+    .photo-caption { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,.55); color:rgba(255,255,255,.8); font-size:.52rem; padding:5px 10px; letter-spacing:.5px; text-transform:uppercase; }
 
-    /* ── FACEBOOK SQUARE 1:1 ─────────────── */
+    /* ── 1:1 ── */
     .post-sq {
-      width:600px; height:600px;
-      border-radius:12px;
-      box-shadow:0 12px 60px rgba(200,80,0,.4);
-      overflow:hidden; position:relative;
-      background:#1A0800;
+      width:600px; height:600px; background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5); display:flex; flex-direction:column;
     }
-
-    /* Sand storm texture */
-    .sandstorm {
-      position:absolute; inset:0;
-      background:
-        radial-gradient(ellipse 600px 400px at 20% 40%, rgba(200,120,20,.6) 0%, transparent 60%),
-        radial-gradient(ellipse 400px 300px at 80% 20%, rgba(180,90,10,.4) 0%, transparent 50%),
-        radial-gradient(ellipse 500px 500px at 50% 80%, rgba(100,40,5,.5) 0%, transparent 70%);
-    }
-    /* Sand particles */
-    .sand-layer {
-      position:absolute; inset:0;
-      background-image:
-        radial-gradient(1px 1px at 15% 20%, rgba(210,160,80,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 35% 45%, rgba(200,140,60,.5) 0%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 55% 15%, rgba(220,170,90,.7) 0%, transparent 100%),
-        radial-gradient(1px 1px at 70% 55%, rgba(190,130,50,.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 85% 30%, rgba(215,155,70,.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 25% 70%, rgba(200,140,60,.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 90% 70%, rgba(210,160,80,.5) 0%, transparent 100%),
-        radial-gradient(2px 2px at 45% 85%, rgba(220,170,90,.3) 0%, transparent 100%);
-    }
-    /* Visibility reduction overlay */
-    .vis-overlay {
-      position:absolute; inset:0;
-      background:rgba(160,80,10,.35);
-    }
-
-    /* Content */
-    .content {
-      position:relative; z-index:2;
-      padding:26px; height:100%;
-      display:flex; flex-direction:column; gap:8px;
-    }
-
-    .top-row { display:flex; justify-content:space-between; align-items:flex-start; }
-    .logo-box {
-      border:2px solid rgba(255,195,0,.7);
-      padding:4px 9px; font-weight:900; font-size:.6rem;
-      letter-spacing:2px; text-transform:uppercase;
-      color:#fff; line-height:1.4;
-    }
-    .logo-box span { color:#FFC300; }
-    .quiz-badge {
-      background:rgba(245,130,31,.2);
-      border:2px solid rgba(245,130,31,.6);
-      color:#F5821F; font-size:.65rem; font-weight:900;
-      letter-spacing:1.5px; text-transform:uppercase;
-      padding:5px 12px; border-radius:20px;
-    }
-
-    .quiz-icon { font-size:2.2rem; text-align:center; margin:4px 0; }
-
-    .quiz-title {
-      font-size:1.5rem; font-weight:900;
-      color:#fff; text-transform:uppercase;
-      text-align:center; line-height:1.2;
-    }
-    .quiz-title span { color:#FFC300; }
+    .sq-photo { height:210px; background:#B0B0B0; position:relative; flex-shrink:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; }
+    .sq-body-zone { flex:1; padding:16px 20px; display:flex; flex-direction:column; }
+    .sq-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .sq-logo { font-weight:900; font-size:.68rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; }
+    .quiz-tag { font-size:.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--blanc); background:var(--brd); padding:3px 10px; border-radius:2px; }
+    .sq-title { font-size:1.05rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin-bottom:6px; }
 
     /* Visibility gauge */
-    .vis-gauge {
-      background:rgba(0,0,0,.4);
-      border:1px solid rgba(245,130,31,.3);
-      border-radius:8px; padding:10px 14px;
-      display:flex; align-items:center; gap:10px;
-    }
+    .vis-gauge { display:flex; align-items:center; gap:10px; border:1px solid #DDD; border-left:3px solid var(--brd); padding:8px 12px; margin-bottom:10px; }
     .vis-icon { font-size:1.4rem; }
-    .vis-text { flex:1; }
-    .vis-label { font-size:.6rem; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:1px; }
-    .vis-value { font-size:1.1rem; font-weight:900; color:#FF4444; }
-    .vis-bar { height:6px; background:rgba(255,255,255,.15); border-radius:3px; margin-top:4px; overflow:hidden; }
-    .vis-fill { height:100%; width:12%; background:linear-gradient(90deg,#FF4444,#FF8800); border-radius:3px; }
+    .vis-val { font-size:1rem; font-weight:900; color:var(--brd); }
+    .vis-lbl { font-size:.58rem; color:#666; text-transform:uppercase; letter-spacing:.5px; }
+    .vis-bar { height:5px; background:#EEE; border-radius:3px; overflow:hidden; margin-top:3px; width:80px; }
+    .vis-fill { height:100%; width:12%; background:var(--brd); }
 
-    .question-box {
-      background:rgba(0,0,0,.5);
-      border:1px solid rgba(255,195,0,.3);
-      border-radius:8px; padding:12px 14px;
-      font-size:.8rem; color:#fff; line-height:1.5;
-      text-align:center;
-    }
-    .question-box strong { color:#FFC300; }
+    .question-box { font-size:.72rem; color:var(--noir); line-height:1.5; border:1px solid #DDD; padding:8px 12px; margin-bottom:10px; border-radius:2px; }
 
     /* Answer buttons */
-    .answer-btn {
-      display:flex; align-items:center; gap:10px;
-      background:rgba(0,0,0,.4);
-      border:2px solid;
-      border-radius:8px; padding:10px 14px;
-      cursor:pointer; transition:all .2s;
-    }
-    .btn-a { border-color:rgba(255,255,255,.2); }
-    .btn-b { border-color:rgba(0,255,136,.4); }
-    .btn-c { border-color:rgba(255,80,80,.3); }
-    .answer-letter {
-      width:28px; height:28px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:900; font-size:.75rem; flex-shrink:0;
-    }
-    .al-a { background:rgba(255,255,255,.15); color:#fff; }
-    .al-b { background:rgba(0,255,136,.2); color:#00FF88; border:1px solid #00FF88; }
-    .al-c { background:rgba(255,80,80,.2); color:#FF5555; border:1px solid #FF5555; }
-    .answer-text { font-size:.72rem; color:rgba(255,255,255,.85); line-height:1.3; }
-    .correct-hint { font-size:.58rem; color:#00FF88; font-weight:700; margin-top:2px; }
+    .answer-btn { display:flex; align-items:center; gap:10px; border:1px solid #DDD; padding:8px 12px; margin-bottom:6px; border-radius:3px; }
+    .answer-btn.correct { border-color:var(--brd); border-left:3px solid var(--brd); }
+    .ans-letter { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.68rem; flex-shrink:0; }
+    .al-default { background:#EEE; color:#666; }
+    .al-correct { background:var(--brd); color:var(--blanc); }
+    .ans-text { font-size:.68rem; color:var(--noir); line-height:1.3; }
+    .ans-hint { font-size:.58rem; color:var(--brd); font-weight:700; margin-top:2px; }
 
-    .cta-text {
-      font-size:.75rem; color:rgba(255,255,255,.75);
-      text-align:center; font-style:italic;
-    }
-    .hashtags { font-size:.65rem; color:rgba(255,195,0,.5); text-align:center; }
+    .cta { font-size:.7rem; color:#666; text-align:center; font-style:italic; margin:4px 0; }
+    .hashtags { font-size:.6rem; color:var(--brd); text-align:center; margin-bottom:6px; }
+    .footer-urgence { background:var(--brd); color:var(--blanc); padding:7px 10px; font-size:.56rem; display:flex; justify-content:space-between; margin:-16px -20px -16px; margin-top:auto; }
 
-    .footer-contact {
-      border-top:1px solid rgba(255,255,255,.15);
-      padding-top:8px;
-      display:flex; justify-content:space-between;
-      font-size:.58rem; color:rgba(255,255,255,.45);
-    }
-
-    /* ── Wide 16:9 variant ─────────────── */
+    /* ── 16:9 ── */
     .post-wide {
-      width:900px; height:506px;
-      border-radius:10px;
-      box-shadow:0 12px 60px rgba(200,80,0,.4);
-      overflow:hidden; position:relative;
-      background:#1A0800; display:flex;
+      width:900px; height:506px; background:var(--blanc);
+      border-radius:6px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.5); display:flex;
     }
-    .pw-left-storm {
-      width:40%; position:relative; overflow:hidden;
-      background:linear-gradient(135deg, #5A2800 0%, #A04000 50%, #C87000 100%);
-      display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px;
-      padding:30px;
-    }
-    .storm-label {
-      font-size:1rem; font-weight:900; color:#fff;
-      text-transform:uppercase; text-align:center; line-height:1.3;
-    }
-    .storm-label span { color:#FFC300; }
-    .vis-50 {
-      font-size:3.5rem; font-weight:900; color:#FF4444;
-      text-shadow:0 0 20px rgba(255,68,68,.5);
-    }
-    .vis-50 span { font-size:1rem; color:rgba(255,255,255,.6); }
-    .speed-50 {
-      font-size:2.5rem; font-weight:900; color:#FFC300;
-      text-shadow:0 0 15px rgba(255,195,0,.5);
-    }
-    .speed-50 span { font-size:.7rem; color:rgba(255,255,255,.6); display:block; text-align:center; }
-    .pw-right {
-      flex:1; position:relative;
-      background:linear-gradient(135deg, #200800 0%, #3A1200 50%, #200800 100%);
-      padding:26px 30px;
-      display:flex; flex-direction:column; gap:8px;
-    }
+    .pw-photo { width:45%; background:#B0B0B0; position:relative; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; }
+    .pw-text { flex:1; padding:26px 24px; display:flex; flex-direction:column; border-left:4px solid var(--brd); }
+    .pw-logo { font-weight:900; font-size:.8rem; letter-spacing:3px; color:var(--brd); text-transform:uppercase; }
+    .pw-tag-row { display:flex; align-items:center; gap:8px; margin:8px 0; }
+    .pw-quiz-tag { font-size:.6rem; font-weight:700; text-transform:uppercase; color:var(--blanc); background:var(--brd); padding:3px 10px; border-radius:2px; }
+    .pw-date { font-size:.58rem; color:#888; }
+    .pw-title { font-size:1.2rem; font-weight:900; text-transform:uppercase; color:var(--brd); line-height:1.2; margin-bottom:8px; }
+    .pw-vis { display:flex; align-items:center; gap:8px; font-size:.7rem; font-weight:700; color:var(--brd); border:1px solid var(--brd); padding:6px 10px; border-radius:2px; margin-bottom:8px; width:fit-content; }
+    .pw-question { font-size:.72rem; color:var(--noir); line-height:1.5; margin-bottom:8px; }
+    .pw-ans { display:flex; flex-direction:column; gap:5px; margin-bottom:8px; }
+    .pw-ans-item { display:flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid #DDD; border-radius:2px; font-size:.68rem; color:var(--noir); }
+    .pw-ans-item.correct { border-color:var(--brd); border-left:3px solid var(--brd); }
+    .pw-let { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.6rem; flex-shrink:0; }
+    .pw-footer { background:var(--brd); color:var(--blanc); padding:7px 12px; margin-top:auto; font-size:.56rem; display:flex; justify-content:space-between; }
   </style>
 </head>
 <body>
 
-<div class="label">📌 Post Facebook — 1:1 — Jeudi 16 Avril 2026</div>
+<div class="label">Publication 6 — Facebook 1:1 — Jeudi 16 Avril 2026</div>
 
-<!-- ═══ SQUARE POST ═══ -->
 <div class="post-sq">
-  <div class="sandstorm"></div>
-  <div class="sand-layer"></div>
-  <div class="vis-overlay"></div>
-
-  <div class="content">
-    <div class="top-row">
-      <div class="logo-box">DPCR<br/><span>DJIBOUTI</span></div>
-      <span class="quiz-badge">❓ Quiz Sécurité</span>
+  <div class="sq-photo">
+    <div class="ph-icon">&#128643;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Camion sur route, brume ou<br/>sable, lumieres allumees</div>
+    <div class="photo-caption">Khamsin — Visibilité réduite — RN1 Djibouti</div>
+  </div>
+  <div class="sq-body-zone">
+    <div class="sq-header">
+      <div class="sq-logo">DPCR</div>
+      <span class="quiz-tag">Quiz Sécurité</span>
     </div>
-
-    <div class="quiz-icon">🌪️</div>
-
-    <div class="quiz-title">
-      LE QUIZ <span>SÉCURITÉ</span><br/>
-      DPCR — KHAMSIN
-    </div>
+    <div class="sq-title">QUIZ SECURITE :<br/>KHAMSIN</div>
 
     <div class="vis-gauge">
-      <div class="vis-icon">👁️</div>
-      <div class="vis-text">
-        <div class="vis-label">Visibilité actuelle</div>
-        <div class="vis-value">&lt; 50 mètres</div>
+      <div>
+        <div class="vis-val">&lt; 50 m</div>
+        <div class="vis-lbl">Visibilité</div>
         <div class="vis-bar"><div class="vis-fill"></div></div>
       </div>
-      <div style="font-size:1.8rem;">🌪️</div>
+      <div style="font-size:.68rem; color:var(--noir); line-height:1.4;">Vent de sable — Khamsin<br/>Conditions de visibilité nulle</div>
     </div>
 
-    <div class="question-box">
-      Lors d'un vent de sable (<strong>Khamsin</strong>) réduisant la visibilité à moins de 50 m,<br/>
-      que doit faire un <strong>poids lourd</strong> ?
-    </div>
+    <div class="question-box">Lors d'un vent de sable (Khamsin) reduisant la visibilite a moins de 50 metres, quelle est la conduite a tenir pour un poids lourd ?</div>
 
-    <div class="answer-btn btn-a">
-      <div class="answer-letter al-a">A</div>
-      <div class="answer-text">Maintenir sa vitesse pour traverser la zone rapidement.</div>
+    <div class="answer-btn">
+      <div class="ans-letter al-default">A</div>
+      <div class="ans-text">Maintenir la vitesse pour traverser la zone rapidement.</div>
     </div>
-
-    <div class="answer-btn btn-b">
-      <div class="answer-letter al-b">B</div>
-      <div class="answer-text">
-        Réduire immédiatement à <strong style="color:#FFC300;">50 km/h max</strong> et espacer de <strong style="color:#FFC300;">50 m minimum</strong>.
-        <div class="correct-hint">✓ BONNE RÉPONSE — Donnez-la en commentaire !</div>
+    <div class="answer-btn correct">
+      <div class="ans-letter al-correct">B</div>
+      <div class="ans-text">
+        Reduire a 50 km/h maximum et maintenir 50 metres d'ecart minimum.
+        <div class="ans-hint">Repondez en commentaire.</div>
       </div>
     </div>
-
-    <div class="answer-btn btn-c">
-      <div class="answer-letter al-c">C</div>
-      <div class="answer-text">S'arrêter sur la voie de circulation.</div>
+    <div class="answer-btn">
+      <div class="ans-letter al-default">C</div>
+      <div class="ans-text">S'arreter sur la voie de circulation.</div>
     </div>
 
-    <div class="cta-text">👇 Répondez en commentaire !</div>
-    <div class="hashtags">#QuizDPCR &nbsp;#SécuritéRoutière &nbsp;#Khamsin &nbsp;#Djibouti</div>
-    <div class="footer-contact">
-      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span>
-      <span>📍 DIFTZ Tower, Djibouti</span>
+    <div class="cta">Répondez en commentaire.</div>
+    <div class="hashtags">#QuizDPCR #SécuritéRoutière #Khamsin #Djibouti</div>
+    <div class="footer-urgence">
+      <span>Urgence Gendarmerie : 116</span>
+      <span>Urgence SMUR : 119</span>
+      <span>info@dpcr.dj</span>
     </div>
   </div>
 </div>
 
-<!-- ═══ WIDE 16:9 ═══ -->
-<div class="label">📌 Variante 16:9</div>
+<div class="label">Publication 6 — Variante 16:9 — Jeudi 16 Avril 2026</div>
+
 <div class="post-wide">
-  <div class="sandstorm" style="opacity:.7;"></div>
-  <div class="vis-overlay"></div>
-  <div class="pw-left-storm">
-    <div style="border:2px solid rgba(255,195,0,.5);padding:4px 9px;font-weight:900;font-size:.58rem;letter-spacing:2px;color:#fff;line-height:1.4;">DPCR <span style="color:#FFC300;">DJIBOUTI</span></div>
-    <div style="font-size:3rem;">🌪️</div>
-    <div class="storm-label">KHAMSIN<br/><span>VISIBILITÉ</span></div>
-    <div class="vis-50">&lt;50<span>mètres</span></div>
-    <div class="speed-50">50<span>km/h MAX obligatoire</span></div>
+  <div class="pw-photo">
+    <div class="ph-icon">&#128643;</div>
+    <div class="ph-label">PHOTO REQUISE<br/>Camion sur route<br/>par temps de brume ou sable</div>
+    <div class="photo-caption">Khamsin — Corridor DPCR SA</div>
   </div>
-  <div class="pw-right">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <span style="background:rgba(245,130,31,.2);border:1px solid rgba(245,130,31,.5);color:#F5821F;font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:20px;">❓ Quiz Sécurité DPCR</span>
-      <span style="font-size:.58rem;color:rgba(255,255,255,.5);">16 Avril 2026</span>
+  <div class="pw-text">
+    <div class="pw-logo">DPCR</div>
+    <div class="pw-tag-row">
+      <span class="pw-quiz-tag">Quiz Sécurité</span>
+      <span class="pw-date">16 Avril 2026</span>
     </div>
-    <div style="font-size:1.3rem;font-weight:900;color:#fff;text-transform:uppercase;line-height:1.2;margin:8px 0;">TESTEZ VOS<br/><span style="color:#FFC300;">RÉFLEXES</span> FACE<br/>AU KHAMSIN</div>
-    <div style="background:rgba(0,0,0,.4);border:1px solid rgba(255,195,0,.3);border-radius:8px;padding:10px 14px;font-size:.75rem;color:#fff;line-height:1.5;margin-bottom:8px;">
-      Lors d'un vent de sable réduisant la visibilité à moins de 50 m, que doit faire un poids lourd ?
+    <div class="pw-title">KHAMSIN :<br/>CONNAISSEZ-VOUS<br/>LES RÈGLES ?</div>
+    <div class="pw-vis">Visibilité &lt; 50 m — Khamsin actif</div>
+    <div class="pw-question">Lors d'un vent de sable reduisant la visibilite a moins de 50 metres, quelle conduite adopter ?</div>
+    <div class="pw-ans">
+      <div class="pw-ans-item"><span class="pw-let" style="background:#EEE;color:#666;">A</span>Maintenir la vitesse pour traverser rapidement.</div>
+      <div class="pw-ans-item correct"><span class="pw-let" style="background:var(--brd);color:var(--blanc);">B</span>50 km/h max — 50 m d'ecart minimum. <span style="color:var(--brd);font-weight:700;margin-left:4px;">Correcte.</span></div>
+      <div class="pw-ans-item"><span class="pw-let" style="background:#EEE;color:#666;">C</span>S'arreter sur la voie de circulation.</div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:8px 12px;">
-        <span style="background:rgba(255,255,255,.15);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;">A</span>
-        <span style="font-size:.7rem;color:rgba(255,255,255,.75);">Maintenir sa vitesse pour traverser rapidement.</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;background:rgba(0,255,136,.06);border:2px solid rgba(0,255,136,.4);border-radius:6px;padding:8px 12px;">
-        <span style="background:rgba(0,255,136,.2);color:#00FF88;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;border:1px solid #00FF88;">B</span>
-        <span style="font-size:.7rem;color:#fff;">50 km/h max · 50 m d'écart minimum. <span style="color:#00FF88;font-weight:700;">✓ CORRECTE</span></span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;background:rgba(255,80,80,.05);border:1px solid rgba(255,80,80,.25);border-radius:6px;padding:8px 12px;">
-        <span style="background:rgba(255,80,80,.2);color:#FF5555;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0;border:1px solid #FF5555;">C</span>
-        <span style="font-size:.7rem;color:rgba(255,255,255,.75);">S'arrêter sur la voie de circulation.</span>
-      </div>
-    </div>
-    <div style="font-size:.65rem;color:rgba(255,195,0,.5);margin-top:auto;">#QuizDPCR #SécuritéRoutière #Khamsin #Djibouti</div>
-    <div style="border-top:1px solid rgba(255,255,255,.15);padding-top:8px;display:flex;justify-content:space-between;font-size:.6rem;color:rgba(255,255,255,.45);">
-      <span>📞 (+253) 21 27 05 11 | info@dpcr.dj</span><span>📍 DIFTZ Tower, Djibouti</span>
+    <div style="font-size:.6rem;color:var(--brd);">#QuizDPCR #SécuritéRoutière #Khamsin #Djibouti</div>
+    <div class="pw-footer">
+      <span>Urgence Gendarmerie : 116</span>
+      <span>Urgence SMUR : 119</span>
+      <span>info@dpcr.dj — DIFTZ Tower</span>
     </div>
   </div>
 </div>
